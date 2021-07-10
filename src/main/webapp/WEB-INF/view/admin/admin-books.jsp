@@ -6,11 +6,11 @@
 
 <body>
 
-	<h1>Admin page</h1>
+	<h1>Admin books</h1>
 	
 	<form >
 		<input type="button" value="Add book" 
-		onclick="window.location.href='${pageContext.request.contextPath}/admin/add-book'"> 
+		onclick="window.location.href='${pageContext.request.contextPath}/admin/books/add-book'"> 
 	</form>
 	<table>
 		<tr> 
@@ -24,10 +24,10 @@
 		</tr>
 		
 		<c:forEach items="${books}" var="book"> 
-		<c:url var="updateLink" value="update-book">
+		<c:url var="updateLink" value="/admin/books/update-book">
 						<c:param name="bookId" value="${book.bookId}" />
 		</c:url>
-		<c:url var="deleteLink" value="delete-book">
+		<c:url var="deleteLink" value="/admin/books/delete-book">
 						<c:param name="bookId" value="${book.bookId}" />
 		</c:url>
 			<tr>
@@ -43,6 +43,6 @@
 		</c:forEach>
 		
 	</table>
-	<a href="${pageContext.request.contextPath}/admin">Back to admin page</a>
+	<a href="${pageContext.request.contextPath}/admin">Back</a>
 </body>
 </html>

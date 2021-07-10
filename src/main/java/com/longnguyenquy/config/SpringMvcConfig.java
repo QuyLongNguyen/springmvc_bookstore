@@ -16,6 +16,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
@@ -43,6 +46,15 @@ public class SpringMvcConfig {
 		return resourceViewResolver;
 	}
 
+	 @Bean
+	    public MultipartResolver multipartResolver() {
+	        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+	       
+	        multipartResolver.setMaxUploadSize(5 * 1024 * 1024);
+	 
+	        return multipartResolver;
+	    }
+	 
 	@Bean
 	public DataSource myDataSource() {
 		ComboPooledDataSource myDataSource = new ComboPooledDataSource();

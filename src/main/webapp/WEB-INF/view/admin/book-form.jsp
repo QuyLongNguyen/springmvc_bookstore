@@ -12,7 +12,7 @@
 	
 		
 	<h1>Book form</h1>
-	<form:form action="save-book" modelAttribute="book" method="POST" >
+	<form:form action="save-book" modelAttribute="book" method="POST" enctype="multipart/form-data" >
 		<form:hidden path="bookId"/>
 		<table>
 				
@@ -42,13 +42,13 @@
 					</tr>
 					
 					<tr>
-						<td><label>Image:</label>
+						<td><label>Image:</label></td>
+						<td><form:input path="image" type="file"/>
 						
 					</tr>
 					<tr>
 						<td><label>Category name:</label></td>
 						<td><form:select path="categoryId">
-							
 							<c:forEach items="${categories}" var="category">
 								<form:option value="${category.categoryId}" label="${category.categoryName}"></form:option>
 							</c:forEach> 

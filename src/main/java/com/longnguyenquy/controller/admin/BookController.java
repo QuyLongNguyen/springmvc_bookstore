@@ -1,4 +1,4 @@
-package com.longnguyenquy.controller;
+package com.longnguyenquy.controller.admin;
 
 import java.util.List;
 
@@ -17,9 +17,9 @@ import com.longnguyenquy.service.BookService;
 import com.longnguyenquy.service.CategoryService;
 
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
-	
+@RequestMapping("/admin/books")
+public class BookController {
+
 	@Autowired
 	BookService bookService;
 	
@@ -28,11 +28,6 @@ public class AdminController {
 	
 	
 	@GetMapping(value = {"","/"})
-	public String showAdminPage() {
-		return "/admin/admin-page";
-	}
-	
-	@GetMapping("/books")
 	public String manageBooks(Model model) {
 		
 		List<Book> books = bookService.getBooks();
@@ -84,4 +79,6 @@ public class AdminController {
 		
 		return "redirect:/admin/books";
 	}
+	
+
 }

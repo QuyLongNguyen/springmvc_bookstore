@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartResolver;
 
 @Entity
 @Table(name = "book")
@@ -48,6 +49,17 @@ public class Book {
 	@Transient
 	private int categoryId;
 	
+	@Transient
+	private MultipartFile image;
+	
+	public MultipartFile getImage() {
+		return image;
+	}
+
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
+
 	public Book() {	}
 
 	public Book(String title, String author,  int publishYear, String cover, String description,long price) {
