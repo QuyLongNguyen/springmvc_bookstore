@@ -43,14 +43,23 @@
 					
 					<tr>
 						<td><label>Image:</label></td>
-						<td><form:input path="image" type="file"/>
+						<td><img width="100px" height="168px" alt="image" 
+						src="${pageContext.request.contextPath }/resources/images/${book.cover}"> </td>
 						
+					</tr>
+					<tr>
+						<td><label></label></td>
+						<td><form:input path="image" type="file"/><td>
+						<form:hidden path="cover"/>
 					</tr>
 					<tr>
 						<td><label>Category name:</label></td>
 						<td><form:select path="categoryId">
 							<c:forEach items="${categories}" var="category">
-								<form:option value="${category.categoryId}" label="${category.categoryName}"></form:option>
+								
+									<form:option value="${category.categoryId}" label="${category.categoryName}"></form:option>
+								
+								
 							</c:forEach> 
 						</form:select> </td>
 					</tr>

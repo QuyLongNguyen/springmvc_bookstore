@@ -4,6 +4,7 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -16,11 +17,16 @@ import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.condition.RequestConditionHolder;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -30,7 +36,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableTransactionManagement
 @ComponentScan(basePackages = "com.longnguyenquy")
 @PropertySource({ "application.properties" })
-public class SpringMvcConfig {
+public class SpringMvcConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
 
@@ -46,15 +52,29 @@ public class SpringMvcConfig {
 		return resourceViewResolver;
 	}
 
-	 @Bean
-	    public MultipartResolver multipartResolver() {
-	        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-	       
-	        multipartResolver.setMaxUploadSize(5 * 1024 * 1024);
-	 
-	        return multipartResolver;
-	    }
-	 
+	
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	
+		WebMvcConfigurer.super.addResourceHandlers(registry);
+		//registry.addResourceHandler("/admin/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
+
+
+	@Bean
+	public MultipartResolver multipartResolver() {
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+
+		multipartResolver.setMaxUploadSize(5 * 1024 * 1024);
+
+		return multipartResolver;
+	}
+
+	
+	
 	@Bean
 	public DataSource myDataSource() {
 		ComboPooledDataSource myDataSource = new ComboPooledDataSource();
@@ -83,31 +103,30 @@ public class SpringMvcConfig {
 	}
 
 	@Bean
-	public LocalSessionFactoryBean sessionFactory(){
-		
+	public LocalSessionFactoryBean sessionFactory() {
+
 		// create session factory
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
-		
+
 		// set the properties
 		sessionFactory.setDataSource(myDataSource());
 		sessionFactory.setPackagesToScan(env.getProperty("hibernate.packagesToScan"));
 		sessionFactory.setHibernateProperties(getHibernateProperties());
-		
+
 		return sessionFactory;
 	}
-	
+
 	@Bean
 	@Autowired
 	public HibernateTransactionManager transactionManager(SessionFactory sessionFactory) {
-		
+
 		// setup transaction manager based on session factory
 		HibernateTransactionManager txManager = new HibernateTransactionManager();
 		txManager.setSessionFactory(sessionFactory);
 
 		return txManager;
-	}	
-	
-	
+	}
+
 	private int getIntProperty(String propName) {
 
 		String propVal = env.getProperty(propName);
@@ -125,7 +144,7 @@ public class SpringMvcConfig {
 
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-		
-		return props;				
+
+		return props;
 	}
 }

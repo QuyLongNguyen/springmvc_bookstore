@@ -14,6 +14,7 @@
 	</form>
 	<table>
 		<tr> 
+			<th> </th>
 			<th>Title</th>
 			<th>Author</th>
 			<th>Publish year</th>
@@ -31,12 +32,15 @@
 						<c:param name="bookId" value="${book.bookId}" />
 		</c:url>
 			<tr>
+				<td><img width="120px" height="168px" alt="image" 
+				src="${pageContext.request.contextPath }/resources/images/${book.cover}"> </td>
+				
 				<td>${book.title}</td>
 				<td>${book.author}</td>
 				<td>${book.publishYear}</td>
 				<td width="300px">${book.description}</td>
-				<td>${book.price}</td> 
-				<td>${book.category.categoryName}</td>
+				<td>${book.price}$</td> 
+				<td >${book.category.categoryName}</td>
 				<td><a href="${updateLink}">Update</a> | 
 				<a href="${deleteLink}" onclick="return confirm('Are you sure?')" >Delete</a></td>
 			</tr>

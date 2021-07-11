@@ -1,6 +1,9 @@
 package com.longnguyenquy.controller.admin;
 
 
+import javax.servlet.ServletContext;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/admin")
 public class AdminController {
 	
+	@Autowired
+	ServletContext servletContext;
 	
 	@GetMapping(value = {"","/"})
 	public String showAdminPage() {
+		//System.out.println(servletContext.getRealPath("/"));
 		return "/admin/admin-page";
 	}
 	
