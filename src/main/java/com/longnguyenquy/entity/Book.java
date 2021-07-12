@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import javax.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartResolver;
 
@@ -24,6 +25,7 @@ public class Book {
 	private int bookId;
 	
 	@Column(name = "title")
+	@NotBlank(message = "Title must not blank")
 	private String title;
 	
 	@Column(name = "author")
@@ -39,6 +41,7 @@ public class Book {
 	private String description;
 	
 	@Column(name = "price" ,nullable = true)
+	@Min(value = 0 , message = "price must larger than 0")
 	private long price;
 	
 	

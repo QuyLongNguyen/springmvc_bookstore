@@ -4,7 +4,12 @@
  
 <html>
 <head>
-<title></title>
+<title>Hogwarts-Bookstore</title>
+<style>
+.error{
+	color: red;
+}
+</style>
 </head>
 
 <body>
@@ -18,7 +23,9 @@
 				
 					<tr>
 						<td><label>Title:</label></td>
-						<td><form:input path="title" /></td>
+						<td><form:input path="title" />
+						<form:errors cssClass="error" path="title"/> </td>
+						
 					</tr>
 				
 					<tr>
@@ -38,7 +45,8 @@
 					
 					<tr>
 						<td><label>Price:</label></td>
-						<td><form:input path="price" /><td>
+						<td><form:input path="price" />
+						<form:errors cssClass="error" path="price"/> <td>
 					</tr>
 					
 					<tr>
@@ -55,7 +63,7 @@
 					<tr>
 						<td><label>Category name:</label></td>
 						<td><form:select path="categoryId">
-							<c:forEach items="${categories}" var="category">
+							<c:forEach items="${categories}"  var="category">
 								
 									<form:option value="${category.categoryId}" label="${category.categoryName}"></form:option>
 								
