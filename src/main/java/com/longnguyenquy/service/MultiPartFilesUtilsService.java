@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-public class MultiPartFilesUtils {
+public class MultiPartFilesUtilsService {
 
 	@Autowired
 	MultipartFile multipartFile;
@@ -19,11 +19,8 @@ public class MultiPartFilesUtils {
 	@Autowired
 	ServletContext servletContext;
 
-	public MultiPartFilesUtils() {
 
-	}
-
-	public MultiPartFilesUtils(MultipartFile multipartFile) {
+	public MultiPartFilesUtilsService(MultipartFile multipartFile) {
 		this.multipartFile = multipartFile;
 	}
 
@@ -35,10 +32,10 @@ public class MultiPartFilesUtils {
 		this.multipartFile = multipartFile;
 	}
 
-	public void saveFileToServletContextRealPath(MultipartFile multipartFile, String imageDir,
+	public void saveFileTo(String pathName,
 			boolean enableReplaceFileIfExists) {
 
-		File file = new File(imageDir);
+		File file = new File(pathName);
 		if (enableReplaceFileIfExists) {
 
 			deleteFileIfExist(file, true);
@@ -54,13 +51,7 @@ public class MultiPartFilesUtils {
 
 	}
 
-	public void deleteFileInServlerContextRealPath(String pathFormServletContext, String fileName) {
-		File file = new File(servletContext.getRealPath("/") + pathFormServletContext + fileName);
-		if (file.exists()) {
-			file.delete();
-		}
-	}
-
+	
 	public void deleteFileIfExist(File file, boolean enableReplaceFileIfExists) {
 		if (file.exists()) {
 			file.delete();

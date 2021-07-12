@@ -70,7 +70,6 @@ public class BookDaoImpl implements BookDao {
 
 		session.saveOrUpdate(book);
 
-		// read image and save
 
 	}
 

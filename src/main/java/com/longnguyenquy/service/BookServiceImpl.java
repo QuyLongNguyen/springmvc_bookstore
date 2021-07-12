@@ -60,8 +60,8 @@ public class BookServiceImpl implements BookService {
 			String imageDir = servletContext.getRealPath("/") + "resources\\images\\" + fileName;
 			book.setCover(fileName);
 			
-			MultiPartFilesUtils multiPartFilesUtils = new MultiPartFilesUtils();
-			multiPartFilesUtils.saveFileToServletContextRealPath(multipartFile, imageDir, true);	
+			MultiPartFilesUtilsService multiPartFilesUtils = new MultiPartFilesUtilsService(multipartFile);
+			multiPartFilesUtils.saveFileTo(imageDir, true);	
 		}
 	}
 
@@ -73,7 +73,6 @@ public class BookServiceImpl implements BookService {
 		Book book = session.get(Book.class, id);
 		
 		String imageDir = servletContext.getRealPath("/") + "resources\\images\\" + book.getCover();
-		
 		File file = new File(imageDir);
 		if (file.exists()) {
 			file.delete();
