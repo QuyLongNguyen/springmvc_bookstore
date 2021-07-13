@@ -47,6 +47,6 @@
 		</c:forEach>
 		
 	</table>
-	<a href="${pageContext.request.contextPath}/admin">Back</a>
+	<a href="${pageContext.request.contextPath}/admin/categories">Back</a>
 </body>
 </html>

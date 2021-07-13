@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 
 @Repository
@@ -42,7 +43,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	public void saveOrUpdateCategory(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		saveOrUpdateCategory(category);
+		session.saveOrUpdate(category);
 		
 	}
 
@@ -51,6 +52,12 @@ public class CategoryDaoImpl implements CategoryDao {
 		Session session = sessionFactory.getCurrentSession();
 		
 		Category category = session.get(Category.class, id);
+		
+		List<Book> books = category.getBooks();
+		
+		for(Book book: books) {
+			book.setCategory(null);
+		}
 		
 		session.delete(category);
 	}
