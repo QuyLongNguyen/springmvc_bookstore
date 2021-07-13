@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
@@ -39,12 +40,20 @@ public class BookController {
 		dataBinder.registerCustomEditor(String.class, stringTrimmer);
 	}
 	 */
-	
-	
-	@GetMapping(value = {"","/"})
+	@GetMapping(value = {"","/"} )
 	public String manageBooks(Model model) {
 		
 		List<Book> books = bookService.getBooks();
+		
+		model.addAttribute("books", books);
+		
+		return "/admin/admin-books";
+	}
+	
+	@GetMapping(value = {"","/"} , params = {"categoryId"})
+	public String manageBooks(@RequestParam("categoryId") int categoryId , Model model) {
+		
+		List<Book> books = bookService.getBooks(categoryId);
 		
 		model.addAttribute("books", books);
 		
@@ -79,19 +88,19 @@ public class BookController {
 	}
 	
 	@PostMapping("/save-book")
-	public String saveBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult) {
+	public String saveBook(@Valid @ModelAttribute("book") Book book, RedirectAttributes redirectAttributes ,BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 			return "/admin/book-form";
 		}
 		else {
 			bookService.saveOrUpdateBook(book);
-			
-			return "redirect:/admin/books";
+			redirectAttributes.addAttribute("categoryId", book.getCategoryId());
+			return "redirect:/admin/books?categoryId={categoryId}";
 		}
 	}
 	
 	@GetMapping("/delete-book")
-	public String deleteBook(@ModelAttribute("bookId") int bookId) {
+	public String deleteBook(@ModelAttribute("bookId") int bookId ) {
 		
 		bookService.deleteBook(bookId);
 		

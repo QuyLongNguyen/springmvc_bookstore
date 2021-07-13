@@ -82,4 +82,11 @@ public class BookServiceImpl implements BookService {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<Book> getBooks(int categoryId) {
+		
+		return bookDao.getBooks(categoryId);
+	}
+
 }

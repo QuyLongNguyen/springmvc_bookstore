@@ -48,6 +48,19 @@ public class BookDaoImpl implements BookDao {
 	}
 
 	@Override
+	public List<Book> getBooks(int categoryId) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query query = session.createQuery("select b from Book b join b.category c where c.categoryId = :categoryId");
+		query.setParameter("categoryId", categoryId);
+		
+		List<Book> books = (List<Book>) query.getResultList();
+
+		return books;
+	}
+	
+	@Override
 	public Book getBook(int id) {
 		Session session = sessionFactory.getCurrentSession();
 
@@ -82,5 +95,7 @@ public class BookDaoImpl implements BookDao {
 		query.executeUpdate();
 
 	}
+
+	
 
 }
