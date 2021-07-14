@@ -3,6 +3,7 @@ package com.longnguyenquy.entity;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,7 @@ public class Book {
 	
 	
 	@JoinColumn(name = "category_id")
-	@ManyToOne/*(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})*/
+	@ManyToOne(fetch = FetchType.EAGER)/*(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})*/
 	private Category category;
 
 	@Transient

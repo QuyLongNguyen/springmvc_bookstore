@@ -25,7 +25,7 @@ import com.longnguyenquy.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/books")
-public class BookController {
+public class BookAdminController {
 
 	@Autowired
 	BookService bookService;

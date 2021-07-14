@@ -19,40 +19,36 @@
 
 	<div >
 		<div >
-			<h2>All books of ${category.categoryName}</h2>
+			<h2>Details of ${book.title}</h2>
 		</div>
 	</div>
 	
 	<div id="container">
 	
 		<div id="content">
-		
+			
 			<table>
 				<tr>
-					<th>Title</th>
+					
 					<th>Publish year</th>
+					<th>Description </th>
 					<th>Price</th>
 					<th></th>
 				</tr>
-				
-				<!-- loop over and print our customers -->
-				<c:forEach var="book" items="${books}">
-					<c:url var="viewDetail" value="/books">
-						
-					</c:url>
 					<tr>
-						<td> ${book.title} </td>
-						<td> ${book.publishYear} </td>
-						<td> ${book.price} </td>
-						<td> <a href="${viewDetail}/${book.bookId}">View detail</a></td>
-					</tr>
-				
-				</c:forEach>
 						
+						<td> ${book.publishYear} </td>
+						<td> ${book.description} </td>
+						<td> ${book.price} </td>
+						
+					</tr>
+					<c:url value="/books" var="back">
+						<c:param name="categoryId" value="${book.category.categoryId}"></c:param>
+					</c:url>
 			</table>
 				
 		</div>
-		<a href="${pageContext.request.contextPath}/home">Back</a>
+		<a href="${back}">Back</a>
 	</div>
 	
 

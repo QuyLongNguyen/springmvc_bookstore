@@ -19,7 +19,7 @@ import com.longnguyenquy.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/categories")
-public class CategoryController {
+public class CategoryAdminController {
 	
 	
 	@Autowired

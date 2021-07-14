@@ -7,7 +7,7 @@
 <body>
 
 	<h1>Admin categories</h1>
-	
+
 	<form>
 		<input type="button" value="Add category"
 			onclick="window.location.href='${pageContext.request.contextPath}/admin/categories/add-category'">
@@ -34,14 +34,17 @@
 
 				<td>${category.categoryName}</td>
 
-				  <td><a href="${updateLink}">Update</a> | <a
+				<td><a href="${updateLink}">Update</a> | <a
 					href="${deleteLink}" onclick="return confirm('Are you sure?')">Delete</a>
-					<a href="${viewBook}">View</a></td>  
+					<a href="${viewBook}">View</a></td>
 			</tr>
 		</c:forEach>
 
 	</table>
-	<a href="${pageContext.request.contextPath}/admin/books">View all books</a><br>
-	<a href="${pageContext.request.contextPath}/admin">Back to admin page</a>
+	<a href="${pageContext.request.contextPath}/admin/books">View all
+		books</a>
+	<br>
+	<a href="${pageContext.request.contextPath}/admin">Back to admin
+		page</a>
 </body>
 </html>

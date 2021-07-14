@@ -9,20 +9,14 @@ import java.util.List;
 
 import javax.persistence.Query;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.disk.DiskFileItem;
-import org.apache.commons.io.FilenameUtils;
-import org.hibernate.MultiIdentifierLoadAccess;
+
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
@@ -49,16 +43,31 @@ public class BookDaoImpl implements BookDao {
 
 	@Override
 	public List<Book> getBooks(int categoryId) {
-		
+
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		Query query = session.createQuery("select b from Book b join b.category c where c.categoryId = :categoryId");
 		query.setParameter("categoryId", categoryId);
-		
+
 		List<Book> books = (List<Book>) query.getResultList();
 
 		return books;
 	}
+
+	@Override
+	public List<Book> getBooks(int categoryId, int offset, int limit) {
+		Session session = sessionFactory.getCurrentSession();
+
+		Query query = session.createQuery("select b from Book b join b.category c where c.categoryId = :categoryId");
+		query.setParameter("categoryId", categoryId);
+		query.setFirstResult(offset);
+		query.setMaxResults(limit);
+
+		List<Book> books = (List<Book>) query.getResultList();
+
+		return books;
+	}
+
 	
 	@Override
 	public Book getBook(int id) {
@@ -83,7 +92,6 @@ public class BookDaoImpl implements BookDao {
 
 		session.saveOrUpdate(book);
 
-
 	}
 
 	@Override
@@ -95,7 +103,5 @@ public class BookDaoImpl implements BookDao {
 		query.executeUpdate();
 
 	}
-
-	
 
 }

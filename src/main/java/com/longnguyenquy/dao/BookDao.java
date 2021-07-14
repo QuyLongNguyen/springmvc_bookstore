@@ -10,6 +10,8 @@ public interface BookDao {
 	
 	public List<Book> getBooks(int categoryId);
 	
+	public List<Book> getBooks(int categoryId,int offset, int limit);
+	
 	public Book getBook(int id);
 	
 	public void saveOrUpdateBook(Book book);
