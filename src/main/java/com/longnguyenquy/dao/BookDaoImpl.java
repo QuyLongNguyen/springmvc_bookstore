@@ -90,7 +90,7 @@ public class BookDaoImpl implements BookDao {
 		// add mapping to category
 		book.setCategory(category);
 
-		session.saveOrUpdate(book);
+		session.merge(book);
 
 	}
 

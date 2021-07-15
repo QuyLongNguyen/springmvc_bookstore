@@ -43,7 +43,7 @@ public class CategoryDaoImpl implements CategoryDao {
 	public void saveOrUpdateCategory(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		session.saveOrUpdate(category);
+		session.merge(category);
 		
 	}
 
