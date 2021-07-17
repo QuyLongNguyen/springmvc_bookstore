@@ -1,17 +1,18 @@
 package com.longnguyenquy.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
-import javax.transaction.Transactional;
+
 
 import org.apache.commons.io.FilenameUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.longnguyenquy.dao.BookDao;
@@ -41,6 +42,13 @@ public class BookServiceImpl implements BookService {
 	public Book getBook(int id) {
 		
 		return bookDao.getBook(id);
+	}
+	
+	@Override
+	@Transactional
+	public List<Book> findBooksByKeyword(String keyword){
+		
+		return bookDao.findBooksByTitle(keyword);
 	}
 
 	@Override

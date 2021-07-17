@@ -34,6 +34,16 @@ public class BookController {
 		return "books";
 	}
 	
+	@GetMapping(value = {"/",""}, params = {"keyword"})
+	public String showBooks(@RequestParam("keyword") String keyword ,  Model model) {
+		
+		List<Book> books = bookService.findBooksByKeyword(keyword);
+		model.addAttribute("books", books);
+		model.addAttribute("category", keyword);
+		
+		return "books";
+	}
+	
 	@GetMapping(value = {"/",""}, params = {"categoryId"} )
 	public String showBooks(@RequestParam("categoryId") int categoryId, Model model) {
 		
@@ -41,7 +51,7 @@ public class BookController {
 		Category category = categoryService.getCategory(categoryId);
 		List<Book> books = bookService.getBooks(categoryId);
 		model.addAttribute("books", books);
-		model.addAttribute("category", category);
+		model.addAttribute("category", category.getCategoryName());
 		
 		return "books";
 	}

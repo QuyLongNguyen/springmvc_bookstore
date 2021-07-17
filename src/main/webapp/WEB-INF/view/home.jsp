@@ -8,7 +8,10 @@
 <body>
 
 	<h1>Home page</h1>
-
+	<form action="books" method="get">
+		<input type="text" name="keyword" placeholder="title or author you want..."> 
+		<input type="submit" value="Search"> 
+	</form>
 	<table border="1px" >
 		
 		<c:forEach items="${categories}" var="category">

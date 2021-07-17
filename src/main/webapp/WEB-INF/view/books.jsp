@@ -19,10 +19,13 @@
 
 	<div >
 		<div >
-			<h2>All books of ${category.categoryName}</h2>
+			<h2>All books of ${category}</h2>
 		</div>
 	</div>
-	
+	<form action="books" method="get">
+		<input type="text" name="keyword" placeholder="title or author you want..."> 
+		<input type="submit" value="Search"> 
+	</form>
 	<div id="container">
 	
 		<div id="content">

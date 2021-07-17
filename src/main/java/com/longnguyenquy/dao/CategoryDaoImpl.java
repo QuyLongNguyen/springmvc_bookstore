@@ -2,10 +2,11 @@ package com.longnguyenquy.dao;
 
 import java.util.List;
 
-import javax.persistence.Query;
+
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-		Query query = session.createQuery("from Category",Category.class);
+		Query<Category> query = session.createQuery("from Category",Category.class);
 		
 		List<Category> categories = query.getResultList();
 		
