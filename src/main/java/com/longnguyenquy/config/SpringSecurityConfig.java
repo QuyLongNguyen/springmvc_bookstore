@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -29,12 +30,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		/*
-		 * 
-		 * UserBuilder users = User.withDefaultPasswordEncoder();
-		auth.inMemoryAuthentication().withUser(users.username("long1").password("123456").roles("admin","customer"));
-		auth.inMemoryAuthentication().withUser(users.username("long2").password("123456").roles("customer"));
-		*/
 		auth.authenticationProvider(authenticationProvider());
 	}
 
@@ -47,6 +42,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		.and().csrf().disable();
 		
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/books/buy").hasAnyRole("CUSTOMER");
 	
 	}
 	

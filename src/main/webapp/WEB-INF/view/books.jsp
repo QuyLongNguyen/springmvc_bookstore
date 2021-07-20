@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 
 <html>
@@ -41,6 +41,7 @@
 				<!-- loop over and print our customers -->
 				<c:forEach var="book" items="${books}">
 					<c:url var="viewDetail" value="/books">
+					
 						
 					</c:url>
 					<tr>
@@ -48,10 +49,17 @@
 						<td> ${book.publishYear} </td>
 						<td> ${book.price} </td>
 						<td> <a href="${viewDetail}/${book.bookId}">View detail</a></td>
+						
+						<form:form action="books/buy" modelAttribute="item" method="POST">
+							<form:hidden path="itemId"/>
+							<form:hidden path="bookId" value="${book.bookId}" />
+							<td><form:input path="quantity"/> </td>
+							<td><input type="submit" value="add to cart"></td>
+						</form:form>
+						
 					</tr>
 				
-				</c:forEach>
-						
+				</c:forEach>		
 			</table>
 				
 		</div>

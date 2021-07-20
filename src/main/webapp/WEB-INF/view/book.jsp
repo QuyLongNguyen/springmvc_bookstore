@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+ <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+ 
 <!DOCTYPE html>
 
 <html>
@@ -40,7 +41,12 @@
 						<td> ${book.publishYear} </td>
 						<td> ${book.description} </td>
 						<td> ${book.price} </td>
-						
+						<form:form action="books/buy" modelAttribute="item" method="POST">
+							<form:hidden path="itemId"/>
+							<form:hidden path="bookId" value="${book.bookId}" />
+							<td><form:input path="quantity"/> </td>
+							<td><input type="submit" value="add to cart"></td>
+						</form:form>
 					</tr>
 					<c:url value="/books" var="back">
 						<c:param name="categoryId" value="${book.category.categoryId}"></c:param>

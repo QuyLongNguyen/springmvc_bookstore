@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 
@@ -43,25 +44,29 @@ public class User {
 	joinColumns = @JoinColumn(name = "user_id"), 
 	inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Collection<Role> roles;
+	
+	@OneToOne(mappedBy = "user")
+	private Cart cart;
+	
+	public User() {};
 
-	public User() {
-	}
-
-	public User(String userName, String password, String firstName, String lastName, String email) {
+	public User(String userName, String password, String firstName, String lastName, String email,Cart cart) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.cart = cart;
 	}
 
-	public User(String userName, String password, String firstName, String lastName, String email,
+	public User(String userName, String password, String firstName, String lastName, String email, Cart cart,
 			Collection<Role> roles) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.cart = cart;
 		this.roles = roles;
 	}
 
@@ -120,7 +125,15 @@ public class User {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public Cart getCart() {
+		return cart;
+	}
 
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+	
 	@Override
 	public String toString() {
 		return "User{" + "id=" + id + ", userName='" + userName + '\'' + ", password='" + "*********" + '\''
