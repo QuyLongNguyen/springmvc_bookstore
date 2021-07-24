@@ -25,9 +25,6 @@ public class BookServiceImpl implements BookService {
 	private BookDao bookDao;
 	
 	@Autowired
-	SessionFactory sessionFactory;
-	
-	@Autowired
 	ServletContext servletContext;
 
 	@Override
@@ -77,8 +74,7 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public void deleteBook(int id) {
 		
-		Session session = sessionFactory.getCurrentSession();
-		Book book = session.get(Book.class, id);
+		Book book = bookDao.getBook(id);
 		
 		String imageDir = servletContext.getRealPath("/") + "resources\\images\\" + book.getCover();
 		File file = new File(imageDir);

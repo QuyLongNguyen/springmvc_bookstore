@@ -50,12 +50,7 @@
 						<td> ${book.price} </td>
 						<td> <a href="${viewDetail}/${book.bookId}">View detail</a></td>
 						
-						<form:form action="books/buy" modelAttribute="item" method="POST">
-							<form:hidden path="itemId"/>
-							<form:hidden path="bookId" value="${book.bookId}" />
-							<td><form:input path="quantity"/> </td>
-							<td><input type="submit" value="add to cart"></td>
-						</form:form>
+						
 						
 					</tr>
 				

@@ -1,5 +1,6 @@
 package com.longnguyenquy.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -14,6 +15,9 @@ public class Cart {
 	@Column(name = "cart_id")
 	private int cartId;
 	
+	@Column(name = "date_created")
+	private Date dateCreated;
+	
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private User user;
@@ -21,11 +25,13 @@ public class Cart {
 	@OneToMany(mappedBy = "cart")
 	private List<Item> items;
 	
+	
 	public Cart() {}
 	
-	public Cart(User user,List<Item> items) {
+	public Cart(User user,Date dateCreated,List<Item> items) {
 		this.user = user;
 		this.items = items;
+		this.dateCreated = dateCreated;
 	}
 
 	public int getCartId() {
@@ -50,6 +56,14 @@ public class Cart {
 
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+
+	public Date getDateCreated() {
+		return dateCreated;
+	}
+
+	public void setDateCreated(Date dateCreated) {
+		this.dateCreated = dateCreated;
 	}
 
 	

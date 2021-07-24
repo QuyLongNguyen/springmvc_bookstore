@@ -2,6 +2,7 @@ package com.longnguyenquy.service;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.findByUserName(userName);
 	}
 
+	
 	@Override
 	@Transactional
 	public void save(UserDto userDto) {

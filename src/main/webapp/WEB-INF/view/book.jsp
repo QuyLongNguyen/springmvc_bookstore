@@ -23,9 +23,13 @@
 			<h2>Details of ${book.title}</h2>
 		</div>
 	</div>
-	
+	<c:if test="${param.buy == true}">
+				<script type="text/javascript">
+					alert("Added to cart");
+				</script>
+		</c:if>
 	<div id="container">
-	
+		
 		<div id="content">
 			
 			<table>
@@ -41,10 +45,10 @@
 						<td> ${book.publishYear} </td>
 						<td> ${book.description} </td>
 						<td> ${book.price} </td>
-						<form:form action="books/buy" modelAttribute="item" method="POST">
+						<form:form action="buy" modelAttribute="item" method="POST">
 							<form:hidden path="itemId"/>
 							<form:hidden path="bookId" value="${book.bookId}" />
-							<td><form:input path="quantity"/> </td>
+							<td><form:input type="number" value ="1" min="1" path="quantity"/> </td>
 							<td><input type="submit" value="add to cart"></td>
 						</form:form>
 					</tr>
@@ -54,6 +58,7 @@
 			</table>
 				
 		</div>
+		
 		<a href="${back}">Back</a>
 	</div>
 	

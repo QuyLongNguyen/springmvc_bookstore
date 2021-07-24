@@ -33,13 +33,13 @@ public class BookAdminController {
 	@Autowired
 	CategoryService categoryService;
 	
-	/*
+	
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmer);
 	}
-	 */
+	 
 	@GetMapping(value = {"","/"} )
 	public String manageBooks(Model model) {
 		

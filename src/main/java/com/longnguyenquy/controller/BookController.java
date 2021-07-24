@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.longnguyenquy.dao.CartDao;
 import com.longnguyenquy.entity.Book;
@@ -72,23 +73,24 @@ public class BookController {
 	}
 	
 	@GetMapping("/{id}")
-	public String showBook(@PathVariable int id, Model model) {
+	public String showBook(@PathVariable int id,@RequestParam(required = false) boolean buy, Model model) {
 		
 		
 		Book book = bookService.getBook(id);
 		
 		model.addAttribute("book", book);
-		
+		Item item = new Item();
+		model.addAttribute("item", item);
 		return "book";
 	}
 	
 	@PostMapping(value = {"/buy"})
-	public String showBooks(@ModelAttribute("item") Item item ) {
+	public String showBooks(@ModelAttribute("item") Item item , RedirectAttributes redirectAttributes ) {
 		
 		System.out.println(item);
 		cartService.addItem(item);
-		
-		return "redirect:/books";
+		redirectAttributes.addAttribute("bookId", item.getBookId());
+		return "redirect:/books/{bookId}?buy=true";
 	}
 	
 	
