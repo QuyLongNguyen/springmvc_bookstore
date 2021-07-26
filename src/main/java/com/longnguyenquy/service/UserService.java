@@ -9,6 +9,8 @@ public interface UserService extends UserDetailsService {
 
     User findByUserName(String userName);
     
+    User currentUser();
+    
     void save(UserDto userDto);
     
    

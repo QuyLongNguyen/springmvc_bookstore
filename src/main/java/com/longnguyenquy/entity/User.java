@@ -1,6 +1,7 @@
 package com.longnguyenquy.entity;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
@@ -47,6 +49,9 @@ public class User {
 	
 	@OneToOne(mappedBy = "user")
 	private Cart cart;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Bill> bill;
 	
 	public User() {};
 
@@ -134,6 +139,15 @@ public class User {
 		this.cart = cart;
 	}
 	
+	
+	public List<Bill> getBill() {
+		return bill;
+	}
+
+	public void setBill(List<Bill> bill) {
+		this.bill = bill;
+	}
+
 	@Override
 	public String toString() {
 		return "User{" + "id=" + id + ", userName='" + userName + '\'' + ", password='" + "*********" + '\''

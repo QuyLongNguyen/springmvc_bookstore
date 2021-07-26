@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.longnguyenquy.entity.Item;
-import com.longnguyenquy.service.CartService;
+import com.longnguyenquy.service.ShoppingService;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
@@ -22,12 +22,12 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 public class CartController {
 	
 	@Autowired
-	CartService cartService;
+	ShoppingService shoppingService;
 	
 	@GetMapping(value = {"/",""})
 	public String showCart(Model model) {
 		
-		List<Item> items = cartService.getCartItems();
+		List<Item> items = shoppingService.getCartItems();
 	
 		model.addAttribute("items", items);
 		return "cart";
@@ -36,7 +36,7 @@ public class CartController {
 	@GetMapping("/updateItem")
 	public String updateItem(@RequestParam("itemId") int itemId, @RequestParam("quantity") int quantity) {
 		
-		cartService.updateItem(itemId, quantity);
+		shoppingService.updateItem(itemId, quantity);
 		
 		return "redirect:/cart";
 	}
@@ -44,11 +44,17 @@ public class CartController {
 	@GetMapping("/deleteItem")
 	public String deleteItem(@RequestParam("itemId") int itemId) {
 		
-		cartService.deleteItem(itemId);
+		shoppingService.deleteItem(itemId);
 		
 		return "redirect:/cart";
 	}
 	
 	
-	
+	@PostMapping("/buy")
+	public String buy() {
+		
+		shoppingService.buy();
+		
+		return "redirect:/cart";
+	}
 }

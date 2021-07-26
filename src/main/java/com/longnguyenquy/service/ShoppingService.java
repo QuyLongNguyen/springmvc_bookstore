@@ -2,15 +2,16 @@ package com.longnguyenquy.service;
 
 import java.util.List;
 
-import com.longnguyenquy.entity.Cart;
 import com.longnguyenquy.entity.Item;
-import com.longnguyenquy.entity.User;
 
-public interface CartService {
+
+public interface ShoppingService {
 	
 	List<Item> getCartItems();
 	
 	void addItem(Item item);
+	
+	void buy();
 	
 	void updateItem(int itemId, int quantity);
 		

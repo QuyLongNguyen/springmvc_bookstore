@@ -18,7 +18,7 @@ import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.service.BookService;
-import com.longnguyenquy.service.CartService;
+import com.longnguyenquy.service.ShoppingService;
 import com.longnguyenquy.service.CategoryService;
 
 @Controller
@@ -32,7 +32,7 @@ public class BookController {
 	CategoryService categoryService;
 	
 	@Autowired
-	CartService cartService;
+	ShoppingService shoppingService;
 	
 	@GetMapping(value = {"/",""})
 	public String showBooks( Model model) {
@@ -84,11 +84,11 @@ public class BookController {
 		return "book";
 	}
 	
-	@PostMapping(value = {"/buy"})
+	@PostMapping(value = {"/addToCart"})
 	public String showBooks(@ModelAttribute("item") Item item , RedirectAttributes redirectAttributes ) {
 		
 		System.out.println(item);
-		cartService.addItem(item);
+		shoppingService.addItem(item);
 		redirectAttributes.addAttribute("bookId", item.getBookId());
 		return "redirect:/books/{bookId}?buy=true";
 	}

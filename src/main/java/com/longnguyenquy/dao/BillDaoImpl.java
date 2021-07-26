@@ -1,6 +1,5 @@
 package com.longnguyenquy.dao;
 
-
 import java.util.List;
 
 import org.hibernate.Session;
@@ -9,45 +8,41 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.longnguyenquy.entity.Cart;
-import com.longnguyenquy.entity.Item;
-
+import com.longnguyenquy.entity.Bill;
 
 @Repository
-public class CartDaoImpl implements CartDao {
+public class BillDaoImpl implements BillDao {
 
 	@Autowired
 	SessionFactory sessionFactory;
 	
-	@Autowired
-	UserDao userDao;
+	@Override
+	public List<Bill> getBills(){
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<Bill> query = session.createQuery("from Bill", Bill.class);
+		
+		List<Bill> bills = query.getResultList();
 	
-	@Override
-	public
-	void saveCart(Cart cart) {
-		Session session = sessionFactory.getCurrentSession();
-		
-		session.save(cart);
-	}
-	@Override
-	public void deleteCart(Cart cart) {
-		Session session = sessionFactory.getCurrentSession();
-		
-		session.save(cart);
+		return bills;
 	}
 	
 	@Override
-	public List<Item> getItemsOf(Cart cart) {
+	public Bill getBill(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Bill bill = session.get(Bill.class, id);
+		
+		return bill;
+	}
+	
+	@Override
+	public void saveBill(Bill bill) {
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-		Query<Item> query = session.createQuery("select i from Item i join i.cart c where c.cartId = :cartId", Item.class);
-		query.setParameter("cartId", cart.getCartId());
-		
-		List<Item> items = query.getResultList();
-		
-		return items;
+		session.save(bill);
+
 	}
-	
 
 }

@@ -27,6 +27,9 @@
 	
 		<div id="content">
 		
+			<form:form action="cart/buy" method="post">
+				<input type="submit" value="buy"> 
+			</form:form>
 			<table>
 				<tr>
 					<th>Title</th>

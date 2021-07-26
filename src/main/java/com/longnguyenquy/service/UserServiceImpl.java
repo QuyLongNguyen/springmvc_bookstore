@@ -60,6 +60,16 @@ public class UserServiceImpl implements UserService {
 		userDao.save(user);
 	}
 	
+	@Override
+	@Transactional
+	public User currentUser() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		User user = findByUserName(username);
+		
+		return user;
+		
+	}
 
 	@Override
 	@Transactional

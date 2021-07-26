@@ -2,8 +2,6 @@ package com.longnguyenquy.entity;
 
 
 import javax.persistence.*;
-
-
 import javax.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,6 +31,9 @@ public class Book {
 	@Column(name = "description")
 	private String description;
 	
+	@Column(name = "quantity")
+	private int quantity;
+	
 	@Column(name = "price" ,nullable = true)
 	@Min(value = 0 , message = "price must larger than 0")
 	private long price;
@@ -60,14 +61,14 @@ public class Book {
 
 	public Book() {	}
 
-	public Book(String title, String author,  int publishYear, String cover, String description,long price) {
+	public Book(String title, String author,  int publishYear, String cover, String description,long price,int quantity) {
 		this.title = title;
 		this.author = author;
 		this.publishYear = publishYear;
 		this.cover = cover;
 		this.description = description;
 		this.price = price;
-		
+		this.quantity = quantity;
 	}
 
 
@@ -128,6 +129,14 @@ public class Book {
 		this.price = price;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -149,7 +158,7 @@ public class Book {
 	@Override
 	public String toString() {
 		return "Book [bookId=" + bookId + ", title=" + title + ", publishYear=" + publishYear + ", cover=" + cover
-				+ ", description=" + description + ",price=" + ", category=" + category + "]";
+				+ ", description=" + description + ",price=" + ",quantity=" + quantity +  ", category=" + category + "]";
 	}
 	
 }

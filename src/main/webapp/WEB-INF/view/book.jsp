@@ -38,6 +38,7 @@
 					<th>Publish year</th>
 					<th>Description </th>
 					<th>Price</th>
+					<th>Quantity</th>
 					<th></th>
 				</tr>
 					<tr>
@@ -45,10 +46,11 @@
 						<td> ${book.publishYear} </td>
 						<td> ${book.description} </td>
 						<td> ${book.price} </td>
-						<form:form action="buy" modelAttribute="item" method="POST">
+						<td> ${book.quantity} </td>
+						<form:form action="addToCart" modelAttribute="item" method="POST">
 							<form:hidden path="itemId"/>
 							<form:hidden path="bookId" value="${book.bookId}" />
-							<td><form:input type="number" value ="1" min="1" path="quantity"/> </td>
+							<td><form:input type="number" value ="1" min="1" max= "${book.quantity}" path="quantity"/> </td>
 							<td><input type="submit" value="add to cart"></td>
 						</form:form>
 					</tr>
