@@ -20,6 +20,7 @@
 			<th>Publish year</th>
 			<th>Description</th>
 			<th>Price</th>
+			<th>Quantity</th>
 			<th>Category</th>
 			<th>Action
 		</tr>
@@ -39,7 +40,8 @@
 				<td>${book.author}</td>
 				<td>${book.publishYear}</td>
 				<td width="300px">${book.description}</td>
-				<td>${book.price}$</td> 
+				<td>${book.price}$</td>
+				<td>${book.quantity}</td>
 				<td >${book.category.categoryName}</td>
 				<td><a href="${updateLink}">Update</a> | 
 				<a href="${deleteLink}" onclick="return confirm('Are you sure?')" >Delete</a></td>

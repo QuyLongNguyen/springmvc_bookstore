@@ -32,9 +32,10 @@ public class Book {
 	private String description;
 	
 	@Column(name = "quantity")
+	@Min(value = 0 , message = "quantity must larger than 0")
 	private int quantity;
 	
-	@Column(name = "price" ,nullable = true)
+	@Column(name = "price")
 	@Min(value = 0 , message = "price must larger than 0")
 	private long price;
 	

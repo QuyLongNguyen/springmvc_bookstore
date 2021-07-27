@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.longnguyenquy.entity.Bill;
+import com.longnguyenquy.entity.BillItem;
 
 @Repository
 public class BillDaoImpl implements BillDao {
@@ -43,6 +44,19 @@ public class BillDaoImpl implements BillDao {
 		
 		session.save(bill);
 
+	}
+	
+	@Override
+	public List<BillItem> getItemsOf(Bill bill){
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<BillItem> query = session.createQuery("from BillItem b where b.bill = :bill", BillItem.class);
+		query.setParameter("bill", bill);
+		
+		List<BillItem> billItems = query.getResultList();
+		
+		return billItems;
 	}
 
 }

@@ -1,10 +1,13 @@
 package com.longnguyenquy.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.longnguyenquy.entity.Cart;
 import com.longnguyenquy.entity.Item;
 
 @Repository
@@ -42,6 +45,16 @@ public class ItemDaoImpl implements ItemDao {
 
 	}
 
-	 	
+	@Override
+	public void deleteItemsOf(Cart cart) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		List<Item> items = cart.getItems();
+		
+		for(Item item: items) {
+			session.delete(item);
+		}
+	}
 
 }

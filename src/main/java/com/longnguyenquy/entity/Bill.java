@@ -24,9 +24,12 @@ public class Bill {
 	@ManyToOne
 	@JoinColumn(name = "status_id")
 	private Status status;
-
+	
 	@OneToMany(mappedBy = "bill")
 	private List<BillItem> billItems;
+	
+	@Transient
+	private int statusId;
 	
 	public Bill() {
 		super();
@@ -78,6 +81,14 @@ public class Bill {
 
 	public void setBillItems(List<BillItem> billItems) {
 		this.billItems = billItems;
+	}
+
+	public int getStatusId() {
+		return statusId;
+	}
+
+	public void setStatusId(int statusId) {
+		this.statusId = statusId;
 	}
 	
 	

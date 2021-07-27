@@ -8,6 +8,8 @@
 
 	<h1>Admin page</h1>
 	<a href="${pageContext.request.contextPath}/admin/categories">Products management</a>
+	<a href="${pageContext.request.contextPath}/admin/bills">Bills management</a>
+	
 	<form:form action="${pageContext.request.contextPath}/logout" method="POST">
 		<input type="submit" value="logout"> 
 	</form:form>

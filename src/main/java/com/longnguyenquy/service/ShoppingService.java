@@ -11,9 +11,9 @@ public interface ShoppingService {
 	
 	void addItem(Item item);
 	
-	void buy();
-	
 	void updateItem(int itemId, int quantity);
 		
 	void deleteItem(int itemId);
+	
+	void buy();
 }

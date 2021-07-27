@@ -44,7 +44,6 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Autowired
 	StatusDao statusDao;
 	
-	
 	@Autowired
 	UserService userService;
 	
@@ -149,7 +148,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 				
 		for(Item item: items) {
 			// Ánh xạ item vào bill
-			BillItem billItem = new BillItem(bill, item.getBook(), item.getBook().getPrice() , item.getQuantity());
+			BillItem billItem = new BillItem(bill, item.getBook(), item.getBook().getPrice(),item.getQuantity());
 			billItems.add(billItem);
 			// Save bill item
 			billItemDao.saveBillItem(billItem);
@@ -160,6 +159,12 @@ public class ShoppingServiceImpl implements ShoppingService {
 		
 		// Save bill
 		billDao.saveBill(bill);
+		
+		// Xóa item trong giỏ hàng
+		itemDao.deleteItemsOf(cart);
+		
+		// Xóa cart
+		cartDao.deleteCart(cart);
 		
 	}
 

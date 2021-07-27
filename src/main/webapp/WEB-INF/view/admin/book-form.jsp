@@ -50,6 +50,12 @@
 					</tr>
 					
 					<tr>
+						<td><label>Quantity:</label></td>
+						<td><form:input path="quantity" />
+						<form:errors cssClass="error" path="price"/> <td>
+					</tr>
+					
+					<tr>
 						<td><label>Image:</label></td>
 						<td><img width="100px" height="168px" alt="image" 
 						src="${pageContext.request.contextPath }/resources/images/${book.cover}"> </td>
