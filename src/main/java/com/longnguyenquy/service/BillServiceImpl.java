@@ -45,6 +45,18 @@ public class BillServiceImpl implements BillService {
 	
 	@Override
 	@Transactional
+	public void updateBill(Bill bill) {
+		
+		Status status = statusDao.getStatus(bill.getStatusId());
+		
+		bill.setStatus(status);
+		
+		billDao.saveBill(bill);
+		
+	}
+	
+	@Override
+	@Transactional
 	public List<BillItem> getItemsOf(Bill bill){
 		
 		return billDao.getItemsOf(bill);

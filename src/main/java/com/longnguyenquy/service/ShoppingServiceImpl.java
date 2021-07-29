@@ -157,6 +157,7 @@ public class ShoppingServiceImpl implements ShoppingService {
 		// Nạp list bill item vào bill
 		bill.setBillItems(billItems);
 		
+		System.out.println("save bill");
 		// Save bill
 		billDao.saveBill(bill);
 		

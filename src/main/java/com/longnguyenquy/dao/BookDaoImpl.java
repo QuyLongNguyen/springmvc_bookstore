@@ -98,7 +98,7 @@ public class BookDaoImpl implements BookDao {
 		// add mapping to category
 		book.setCategory(category);
 
-		session.merge(book);
+		session.saveOrUpdate(book);
 
 	}
 
@@ -106,7 +106,7 @@ public class BookDaoImpl implements BookDao {
 	public void deleteBook(int id) {
 		Session session = sessionFactory.getCurrentSession();
 
-		Query<Book> query = session.createQuery("delete from Book where bookId in (:book_id)",Book.class);
+		Query query = session.createQuery("delete from Book where bookId in (:book_id)");
 		query.setParameter("book_id", id);
 		query.executeUpdate();
 

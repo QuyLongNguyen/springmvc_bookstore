@@ -69,12 +69,19 @@
 					<tr>
 						<td><label>Category name:</label></td>
 						<td><form:select path="categoryId">
-							<c:forEach items="${categories}"  var="category">
-								
-									<form:option value="${category.categoryId}" label="${category.categoryName}"></form:option>
-								
-								
-							</c:forEach> 
+							<c:forEach items="${categories}" var="category">
+							<c:choose>
+						
+							<c:when test="${category.categoryId == book.category.categoryId}">
+								<option value = "${category.categoryId}" selected="selected">${category.categoryName}</option>
+							</c:when>
+							<c:otherwise>
+								<option value = "${category.categoryId}">${category.categoryName}</option>
+							</c:otherwise>
+						
+					
+						</c:choose>
+						</c:forEach>	
 						</form:select> </td>
 					</tr>
 

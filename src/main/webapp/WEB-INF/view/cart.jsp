@@ -26,10 +26,11 @@
 	<div id="container">
 	
 		<div id="content">
-		
-			<form:form action="cart/buy" method="post">
+			<c:if test="${items.size() != 0 }">
+				<form:form action="cart/buy" method="post">
 				<input type="submit" value="buy"> 
 			</form:form>
+			</c:if>
 			<table>
 				<tr>
 					<th>Title</th>

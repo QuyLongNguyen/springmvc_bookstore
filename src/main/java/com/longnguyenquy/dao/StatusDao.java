@@ -10,4 +10,6 @@ public interface StatusDao {
 	List<Status> getAllStatus();
 	
 	Status getStatus(StatusType statusType);
+	
+	Status getStatus(int id);
 }

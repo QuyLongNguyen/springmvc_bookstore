@@ -42,7 +42,7 @@ public class BillDaoImpl implements BillDao {
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-		session.save(bill);
+		session.saveOrUpdate(bill);
 
 	}
 	

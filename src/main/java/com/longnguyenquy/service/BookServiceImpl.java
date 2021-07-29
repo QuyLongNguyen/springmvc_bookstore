@@ -52,11 +52,12 @@ public class BookServiceImpl implements BookService {
 	@Transactional
 	public void saveOrUpdateBook(Book book) {
 		
+
 		bookDao.saveOrUpdateBook(book);
 		
 		//create and save file
 		MultipartFile multipartFile = book.getImage();
-		
+				
 		if (!multipartFile.isEmpty()) {
 			String fileExtension = FilenameUtils.getExtension(multipartFile.getOriginalFilename());
 	

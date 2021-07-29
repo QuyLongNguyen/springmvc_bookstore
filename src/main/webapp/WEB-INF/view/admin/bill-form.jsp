@@ -16,14 +16,27 @@
 
 	<h1>Bill form</h1>
 	
-	<form:form action="save-bill" modelAttribute="bill" method="POST">
+	<form:form action="saveBill" modelAttribute="bill" method="POST">
 		<form:hidden path="billId"/>
 		<table>
 			
 			<tr>
 				<td><label>Status type:</label></td>
-				<td><form:select path="statusId" items="${status}" itemLabel="statusType" itemValue="statusId">
+				<td><form:select path="statusId">
+				<c:forEach items="${status}" var="temp">
+					<c:choose>
+						
+							<c:when test="${temp.statusId == bill.status.statusId}">
+								<option value = "${temp.statusId}" selected="selected">${temp.statusType}</option>
+							</c:when>
+							<c:otherwise>
+								<option value = "${temp.statusId}">${temp.statusType}</option>
+							</c:otherwise>
+						
 					
+					</c:choose>
+						</c:forEach>	
+				
 				</form:select></td>
 				
 			</tr>

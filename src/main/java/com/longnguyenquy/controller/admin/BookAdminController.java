@@ -38,6 +38,8 @@ public class BookAdminController {
 	public void initBinder(WebDataBinder dataBinder) {
 		StringTrimmerEditor stringTrimmer = new StringTrimmerEditor(true);
 		dataBinder.registerCustomEditor(String.class, stringTrimmer);
+
+		
 	}
 	 
 	@GetMapping(value = {"","/"} )
@@ -100,7 +102,7 @@ public class BookAdminController {
 	}
 	
 	@GetMapping("/delete-book")
-	public String deleteBook(@ModelAttribute("bookId") int bookId ) {
+	public String deleteBook(@RequestParam("bookId") int bookId ) {
 		
 		bookService.deleteBook(bookId);
 		

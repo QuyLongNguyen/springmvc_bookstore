@@ -13,30 +13,40 @@ import com.longnguyenquy.entity.Status;
 
 @Repository
 public class StatusDaoImpl implements StatusDao {
-	
+
 	@Autowired
 	SessionFactory sessionFactory;
-	
+
 	@Override
 	public Status getStatus(StatusType statusType) {
+
+		Session session = sessionFactory.getCurrentSession();
+
+		Status status = session.get(Status.class, statusType.getValue());
+
+		return status;
+
+	}
+
+	@Override
+	public Status getStatus(int statusId) {
 		
 		Session session = sessionFactory.getCurrentSession();
-		
-		Status status = session.get(Status.class, statusType.getValue());
-		
+
+		Status status = session.get(Status.class, statusId);
+
 		return status;
-		
 	}
-	
+
 	@Override
 	public List<Status> getAllStatus() {
-		
+
 		Session session = sessionFactory.getCurrentSession();
-		
+
 		Query<Status> query = session.createQuery("from Status", Status.class);
-		
+
 		List<Status> status = query.getResultList();
-		
+
 		return status;
 	}
 }

@@ -14,6 +14,8 @@ public interface BillService {
 	
 	void saveBill(Bill bill);
 	
+	void updateBill(Bill bill);
+	
 	List<BillItem> getItemsOf(Bill bill);
 	
 	List<Status> getAllStatus();
