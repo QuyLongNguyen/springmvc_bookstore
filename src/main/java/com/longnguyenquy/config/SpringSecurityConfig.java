@@ -37,7 +37,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate")
-		.and().logout()
+		.and().logout().logoutSuccessUrl("/home")
 		.and().exceptionHandling().accessDeniedPage("/login/access-denied")
 		.and().csrf().disable();
 		

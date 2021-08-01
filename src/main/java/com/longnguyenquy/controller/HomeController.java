@@ -10,9 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.entity.User;
+import com.longnguyenquy.service.BookService;
 import com.longnguyenquy.service.CategoryService;
 import com.longnguyenquy.service.UserService;
 
@@ -24,6 +26,9 @@ public class HomeController {
 	CategoryService categoryService;
 	
 	@Autowired
+	BookService bookService;
+	
+	@Autowired
 	UserService userService;
 	
 	@GetMapping(value = {"/",""})
@@ -31,6 +36,10 @@ public class HomeController {
 		
 		List<Category> categories = categoryService.getCategories();
 		model.addAttribute("categories", categories);
+		
+		List<Book> books = bookService.getBooksByCategories(4);
+		
+		model.addAttribute("books", books);
 		
 		return "home";
 	}

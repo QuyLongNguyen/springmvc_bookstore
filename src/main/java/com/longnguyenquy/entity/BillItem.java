@@ -1,5 +1,7 @@
 package com.longnguyenquy.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,14 +22,14 @@ public class BillItem {
 	private Book book;
 	
 	@Column(name = "price")
-	private long price;
+	private BigDecimal price;
 	
 	@Column(name = "quantity")
 	private int quantity;
 	
 	public BillItem() {}
 
-	public BillItem(Bill bill, Book book, long price, int quantity) {
+	public BillItem(Bill bill, Book book, BigDecimal price, int quantity) {
 		this.bill = bill;
 		this.book = book;
 		this.price = price;
@@ -56,11 +58,11 @@ public class BillItem {
 		this.book = book;
 	}
 
-	public long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

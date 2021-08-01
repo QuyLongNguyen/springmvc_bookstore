@@ -1,6 +1,8 @@
 package com.longnguyenquy.entity;
 
 
+import java.math.BigDecimal;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,7 +39,7 @@ public class Book {
 	
 	@Column(name = "price")
 	@Min(value = 0 , message = "price must larger than 0")
-	private long price;
+	private BigDecimal price;
 	
 	
 	@JoinColumn(name = "category_id")
@@ -62,7 +64,7 @@ public class Book {
 
 	public Book() {	}
 
-	public Book(String title, String author,  int publishYear, String cover, String description,long price,int quantity) {
+	public Book(String title, String author,  int publishYear, String cover, String description,BigDecimal price,int quantity) {
 		this.title = title;
 		this.author = author;
 		this.publishYear = publishYear;
@@ -122,11 +124,11 @@ public class Book {
 	}
 	
 	
-	public long getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice( BigDecimal price) {
 		this.price = price;
 	}
 

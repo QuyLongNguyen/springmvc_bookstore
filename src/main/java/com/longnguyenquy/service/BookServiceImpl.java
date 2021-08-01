@@ -2,6 +2,7 @@ package com.longnguyenquy.service;
 
 import java.io.File;
 import java.util.List;
+import java.util.Vector;
 
 import javax.servlet.ServletContext;
 
@@ -16,13 +17,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.longnguyenquy.dao.BookDao;
+import com.longnguyenquy.dao.CategoryDao;
 import com.longnguyenquy.entity.Book;
+import com.longnguyenquy.entity.Category;
 
 @Service
 public class BookServiceImpl implements BookService {
 
 	@Autowired
 	private BookDao bookDao;
+	
+	@Autowired
+	private CategoryDao categoryDao;
 	
 	@Autowired
 	ServletContext servletContext;
@@ -32,6 +38,27 @@ public class BookServiceImpl implements BookService {
 	public List<Book> getBooks() {
 		
 		return bookDao.getBooks();
+	}
+	
+	@Override
+	@Transactional
+	public List<Book> getBooksByCategories(int number) {
+		
+		List<Category> categories = categoryDao.getCategories();
+		
+		List<Book> books = new Vector<Book>();
+		for(Category category: categories) {
+			
+			List<Book> booksOfCategory = bookDao.getBooksByCategory(category.getCategoryId(), number);
+			books.addAll(booksOfCategory);
+			int size = booksOfCategory.size();
+			while(size < number) {
+				books.add(null);
+				size++;
+			}
+		}
+		
+		return books;
 	}
 	
 	@Override
