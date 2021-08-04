@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
+import com.longnguyenquy.service.CategoryService;
 import com.longnguyenquy.service.ShoppingService;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
@@ -24,12 +26,19 @@ public class CartController {
 	@Autowired
 	ShoppingService shoppingService;
 	
+	@Autowired
+	CategoryService categoryService;
+	
 	@GetMapping(value = {"/",""})
-	public String showCart(Model model) {
+	public String showCart(Model model,@RequestParam(required = false) boolean buy) {
+		
+		List<Category> categories = categoryService.getCategories();
+		model.addAttribute("categories", categories);
 		
 		List<Item> items = shoppingService.getCartItems();
-	
 		model.addAttribute("items", items);
+		model.addAttribute("cartCount", items.size());
+		
 		return "cart";
 	}
 	
@@ -55,6 +64,6 @@ public class CartController {
 		
 		shoppingService.buy();
 		
-		return "redirect:/cart";
+		return "redirect:/cart?buy=true";
 	}
 }

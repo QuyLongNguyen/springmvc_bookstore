@@ -40,6 +40,9 @@ public class BookController {
 		List<Book> books = bookService.getBooks();
 		model.addAttribute("books", books);
 		
+		List<Item> items = shoppingService.getCartItems();
+		model.addAttribute("cartCount", items.size());
+		
 		Item item = new Item();
 		model.addAttribute("item", item);
 		
@@ -49,25 +52,38 @@ public class BookController {
 	@GetMapping(value = {"/",""}, params = {"keyword"})
 	public String showBooks(@RequestParam("keyword") String keyword ,  Model model) {
 		
+		List<Category> categories = categoryService.getCategories();
+		model.addAttribute("categories", categories);
+		
 		List<Book> books = bookService.findBooksByKeyword(keyword);
 		model.addAttribute("books", books);
-		model.addAttribute("category", keyword);
+		
+		if(shoppingService.getCartItems() != null) {
+			model.addAttribute("cartCount", shoppingService.getCartItems().size());
+		}
+		
 		Item item = new Item();
 		model.addAttribute("item", item);
 		
 		return "books";
 	}
 	
-	@GetMapping(value = {"/",""}, params = {"categoryId"} )
-	public String showBooks(@RequestParam("categoryId") int categoryId, Model model) {
+	@GetMapping(value = {"/",""}, params = {"categoryName"} )
+	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName, Model model) {
 		
+		List<Category> categories = categoryService.getCategories();
+		model.addAttribute("categories", categories);
 		
-		Category category = categoryService.getCategory(categoryId);
-		List<Book> books = bookService.getBooks(categoryId);
+		Category category = categoryService.getCategory(categoryName);
+		List<Book> books = bookService.getBooks(category.getCategoryId());
 		model.addAttribute("books", books);
-		model.addAttribute("category", category.getCategoryName());
+		
 		Item item = new Item();
 		model.addAttribute("item", item);
+		
+		if(shoppingService.getCartItems() != null) {
+			model.addAttribute("cartCount", shoppingService.getCartItems().size());
+		}
 		
 		return "books";
 	}
@@ -75,19 +91,26 @@ public class BookController {
 	@GetMapping("/{id}")
 	public String showBook(@PathVariable int id,@RequestParam(required = false) boolean buy, Model model) {
 		
+		List<Category> categories = categoryService.getCategories();
+		model.addAttribute("categories", categories);
 		
 		Book book = bookService.getBook(id);
 		
 		model.addAttribute("book", book);
 		Item item = new Item();
 		model.addAttribute("item", item);
+		
+		if(shoppingService.getCartItems() != null) {
+			model.addAttribute("cartCount", shoppingService.getCartItems().size());
+		}
+		
 		return "book";
 	}
 	
 	@PostMapping(value = {"/addToCart"})
 	public String showBooks(@ModelAttribute("item") Item item , RedirectAttributes redirectAttributes ) {
 		
-		System.out.println(item);
+		
 		shoppingService.addItem(item);
 		redirectAttributes.addAttribute("bookId", item.getBookId());
 		return "redirect:/books/{bookId}?buy=true";

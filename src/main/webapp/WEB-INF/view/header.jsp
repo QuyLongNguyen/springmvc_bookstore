@@ -4,9 +4,11 @@
 <!doctype html>
 <html>
 	<head>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="UTF-8">
-		<title>Hogwarts bookstore</title>
+		 <% response.setHeader("Cache-Control","no-cache"); //HTTP 1.1 
+ 		response.setHeader("Pragma","no-cache"); //HTTP 1.0 
+ 		response.setDateHeader ("Expires", 0); //prevents caching at the proxy server  %>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
 		<link rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
@@ -36,7 +38,7 @@
 						<c:forEach items="${categories}" var="category">
 						
 						<a class="dropdown-item"
-							href="${pageContext.request.contextPath}/books?categoryId=${category.categoryId}">
+							href="${pageContext.request.contextPath}/books?categoryName=${category.categoryName}">
 						${category.categoryName}</a>
 						
 						</c:forEach>
@@ -79,8 +81,12 @@
 							<a class="dropdown-item" href="${pageContext.request.contextPath}/login">Login</a>
 							</security:authorize>
 							
+							
 							<security:authorize access="isAuthenticated()">
-							<a class="dropdown-item" href="#">Action</a>
+								<security:authorize access="hasRole('ROLE_ADMIN')">
+									<a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Admin page</a>
+								</security:authorize>
+							<a class="dropdown-item" href="">Action</a>
 							<a class="dropdown-item" href="#">Another action</a>
 							
 							<form id="my_form" action="${pageContext.request.contextPath}/logout" method="POST">
@@ -93,13 +99,14 @@
 							
 						</div>
 					</div>
-					<div class="col-xl-1 mt-1 custom-link rounded">
+					<div class="col-xl-1 mt-1 custom-link-blue rounded">
 						<security:authorize access="isAuthenticated()">
 						<a href="${pageContext.request.contextPath}/cart" >
 							<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" class="bi bi-cart2" viewBox="0 0 16 16">
 								<path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg>
-								
-								<span class="badge badge-danger position-absolute top-0 start-100 translate-middle ml-n3">7</span>
+								<security:authorize access="isAuthenticated()">
+								<span class="badge badge-danger position-absolute top-0 start-100 translate-middle ml-n3">${cartCount}</span>
+								</security:authorize>
 							</a>
 							<a href="${pageContext.request.contextPath}/cart" class=" text-white">&nbspCart</a>
 							</security:authorize>

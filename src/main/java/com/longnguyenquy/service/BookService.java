@@ -9,8 +9,6 @@ public interface BookService {
 	
 	public List<Book> getBooks(int categoryId);
 	
-	public List<Book> getBooksByCategories(int number);
-	
 	public List<Book> findBooksByKeyword(String keyword);
 	
 	public Book getBook(int id);

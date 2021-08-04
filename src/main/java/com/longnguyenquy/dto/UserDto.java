@@ -4,6 +4,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.longnguyenquy.validator.FieldMatch;
+import com.longnguyenquy.validator.ValidEmail;
 
 @FieldMatch.List({
     @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
@@ -32,6 +33,7 @@ public class UserDto {
 	
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
+	@ValidEmail(message = "must match user_name@domain_name")
 	private String email;
 
 	public UserDto() {};

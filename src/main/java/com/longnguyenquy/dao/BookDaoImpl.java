@@ -59,7 +59,6 @@ public class BookDaoImpl implements BookDao {
 		query.setMaxResults(number);
 		
 		List<Book> books = query.getResultList();
-		
 		return books;
 	}
 	

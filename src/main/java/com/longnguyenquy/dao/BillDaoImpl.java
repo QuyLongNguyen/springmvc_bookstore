@@ -29,6 +29,19 @@ public class BillDaoImpl implements BillDao {
 	}
 	
 	@Override
+	public List<Bill> getBills(long userId){
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<Bill> query = session.createQuery("from Bill where user.id = :userId", Bill.class);
+		query.setParameter("userId", userId);
+		
+		List<Bill> bills = query.getResultList();
+	
+		return bills;
+	}
+	
+	@Override
 	public Bill getBill(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		

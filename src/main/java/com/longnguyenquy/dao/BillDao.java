@@ -9,6 +9,8 @@ public interface BillDao {
 	
 	List<Bill> getBills();
 	
+	List<Bill> getBills(long userId);
+	
 	Bill getBill(int id);
 	
 	void saveBill(Bill bill);

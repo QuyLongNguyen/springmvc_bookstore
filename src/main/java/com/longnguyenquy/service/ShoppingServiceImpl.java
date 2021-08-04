@@ -123,10 +123,13 @@ public class ShoppingServiceImpl implements ShoppingService {
 	@Override
 	@Transactional
 	public List<Item> getCartItems() {
-		
+	
 		User user = userService.currentUser();
+		if(user != null && user.getCart() != null) {
+			return cartDao.getItemsOf(user.getCart());
+		}
+		return null;
 		
-		return cartDao.getItemsOf(user.getCart());
 	}
 
 	
@@ -135,36 +138,32 @@ public class ShoppingServiceImpl implements ShoppingService {
 	public void buy() {
 		
 		User user = userService.currentUser();
-		// Lấy ra list item
+		
 		Cart cart = user.getCart();
 		
 		List<Item> items = cart.getItems();
 		
-		// Tạo ra list bill item
+		
 		List<BillItem> billItems = new LinkedList<BillItem>();
 		
-		// Tạo ra bill 
+	
 		Bill bill = new Bill(user, new Date(),statusDao.getStatus(StatusType.PENDING));
 				
 		for(Item item: items) {
-			// Ánh xạ item vào bill
+			
 			BillItem billItem = new BillItem(bill, item.getBook(), item.getBook().getPrice(),item.getQuantity());
 			billItems.add(billItem);
-			// Save bill item
+			
 			billItemDao.saveBillItem(billItem);
 		}
 		
-		// Nạp list bill item vào bill
+		
 		bill.setBillItems(billItems);
 		
-		System.out.println("save bill");
-		// Save bill
 		billDao.saveBill(bill);
-		
-		// Xóa item trong giỏ hàng
+			
 		itemDao.deleteItemsOf(cart);
 		
-		// Xóa cart
 		cartDao.deleteCart(cart);
 		
 	}

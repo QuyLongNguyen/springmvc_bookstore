@@ -21,6 +21,9 @@ public class BillServiceImpl implements BillService {
 	@Autowired
 	StatusDao statusDao;
 	
+	@Autowired
+	UserService userService;
+	
 	@Override
 	@Transactional
 	public List<Bill> getBills() {
@@ -28,6 +31,13 @@ public class BillServiceImpl implements BillService {
 		return billDao.getBills();
 	}
 
+	@Override
+	@Transactional
+	public List<Bill> getBillsOfCurentUser(){
+		
+		return billDao.getBills(userService.currentUser().getId());
+	}
+	
 	@Override
 	@Transactional
 	public Bill getBill(int id) {

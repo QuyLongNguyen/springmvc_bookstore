@@ -2,8 +2,6 @@ package com.longnguyenquy.dao;
 
 import java.util.List;
 
-
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -30,6 +28,7 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 		return categories;
 	}
+	@Override
 	public Category getCategory(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		
@@ -39,12 +38,23 @@ public class CategoryDaoImpl implements CategoryDao {
 		
 	}
 	
+	@Override
+	public Category getCategory(String name) {
+		Session session = sessionFactory.getCurrentSession();
+		System.out.println("Name is " + name);
+		Query<Category> query = session.createQuery("from Category where categoryName = :name",Category.class);
+		query.setParameter("name", name);
+		Category category = query.getSingleResult();
+		System.out.println(category);
+		return category;
+		
+	}
 	
 	@Override
 	public void saveOrUpdateCategory(Category category) {
 		Session session = sessionFactory.getCurrentSession();
 		
-		session.merge(category);
+		session.saveOrUpdate(category);
 		
 	}
 

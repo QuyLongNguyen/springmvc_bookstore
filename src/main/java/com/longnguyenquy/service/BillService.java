@@ -10,6 +10,8 @@ public interface BillService {
 
 	List<Bill> getBills();
 	
+	List<Bill> getBillsOfCurentUser();
+	
 	Bill getBill(int id);
 	
 	void saveBill(Bill bill);

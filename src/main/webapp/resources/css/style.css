@@ -1,8 +1,29 @@
 a{ text-decoration: none !important}
 
-.custom-link:hover {
+.custom-link-blue:hover {
 	background-color: #0066cc;
 }
+
+.custom-link-green:hover {
+	background-color: #006600;
+	border-radius: 10px;
+	padding-left: 10px;
+	padding-right:10px;
+
+}
+
 .preview {
 	border-radius: 25px;
+}
+.breadcrumb{
+	background-color: #b3d9ff !important;
+}
+
+ul{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.failed{
+	color:red;
 }
