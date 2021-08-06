@@ -52,7 +52,7 @@
 					</div>			
 				</form:form>
 				<div class="mb-3">
-					<a href="${pageContext.request.contextPath}/user/register">Register New User</a>	
+					<a href="${pageContext.request.contextPath}/register">Register New User</a>	
 				</div>
 				<div class="mb-3">
 					<a href="${pageContext.request.contextPath}/">Homepage</a>	

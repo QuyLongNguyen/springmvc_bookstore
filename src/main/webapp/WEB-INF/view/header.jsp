@@ -87,8 +87,8 @@
 									<a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Admin page</a>
 								</security:authorize>
 							<a class="dropdown-item" href="${pageContext.request.contextPath}/bills">Your bills</a>
-							<a class="dropdown-item" href="#">Another action</a>
-							
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile">Profile</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/user/password">Change password</a>
 							<form id="my_form" action="${pageContext.request.contextPath}/logout" method="POST">
 								<!-- Your Form -->
 								<a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('my_form').submit(); return false;">Logout</a>

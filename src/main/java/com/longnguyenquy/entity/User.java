@@ -15,6 +15,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.longnguyenquy.validator.ValidEmail;
+
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -31,20 +38,32 @@ public class User {
 
 	@Column(name = "password")
 	private String password;
-
+	
 	@Column(name = "first_name")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "is required")
 	private String firstName;
 
 	@Column(name = "last_name")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "is required")
 	private String lastName;
 
 	@Column(name = "email")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "is required")
+	@ValidEmail(message = "must match user_name@domain_name")
 	private String email;
 	
 	@Column(name = "phone_number")
+	@NotNull(message = "is required")
+	@Size(min = 1, message = "is required")
+	@Pattern(regexp="(^$|[0-9]{0,12})" , message = "must be number")
 	private String phoneNumber;
 	
 	@Column(name = "address")
+	@NotNull(message = "is required")
+	@Size(min = 5, message = "is required")
 	private String address;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -109,6 +128,7 @@ public class User {
 		this.password = password;
 	}
 
+	
 	public String getFirstName() {
 		return firstName;
 	}

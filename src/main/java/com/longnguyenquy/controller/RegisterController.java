@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.longnguyenquy.dto.PasswordChanger;
 import com.longnguyenquy.dto.UserRegister;
 import com.longnguyenquy.entity.User;
 import com.longnguyenquy.service.UserService;
 
 @Controller
-@RequestMapping("/user")
-public class UserController {
-
+@RequestMapping("/register")
+public class RegisterController {
+	
 	@Autowired
 	private UserService userService;
 
@@ -32,50 +31,37 @@ public class UserController {
 		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
 	}
 
-	
-	@GetMapping("/profile")
-	public String showProfile(Model model) {
+	@GetMapping("")
+	public String showRegistrationForm(Model model) {
 
-		User user = userService.currentUser();
-		
-		model.addAttribute("user", user);
+		model.addAttribute("userDto", new UserRegister());
 
-		return "user-profile";
+		return "registration-form";
 	}
 	
-	@GetMapping("/password")
-	public String showPasswordForm(Model model) {
-		
-		model.addAttribute("user", new PasswordChanger());
-		
-		return "change-password";
-	}
-
 	
-	@PostMapping("/updateProfile")
-	public String updateProfile(@Valid @ModelAttribute("user") User userDto, BindingResult bindingResult, Model model) {
-		
-		System.out.println(userDto);
+	@PostMapping("/processRegistration")
+	public String processRegistration(@Valid @ModelAttribute("userDto") UserRegister userDto, BindingResult bindingResult,
+			Model model) {
+		String userName = userDto.getUsername();
+
+		// form validation
 		if (bindingResult.hasErrors()) {
 			System.out.println("error");
-			return "user-profile";
+			return "registration-form";
 		}
-		
-		userService.updateProfile(userDto);
-		
-		return "redirect:/user/profile?update=true";
-	}
-	
-	@PostMapping("/changePassword")
-	public String changPassword(@Valid @ModelAttribute("user") PasswordChanger userDto, BindingResult bindingResult, Model model) {
-		
-		if(bindingResult.hasErrors()) {
-			return "change-password";
-		}
-		
-		boolean check = userService.changePassword(userDto);
-		
-		return "redirect:/user/password?change=true";
-	}
 
+		// check the database if user already exists
+		User existing = userService.findByUserName(userName);
+		if (existing != null) {
+			model.addAttribute("crmUser", new UserRegister());
+			model.addAttribute("registrationError", "User name already exists.");
+
+			return "registration-form";
+		}
+		// create user account
+		userService.save(userDto);
+
+		return "registration-confirmation";
+	}
 }

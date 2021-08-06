@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.longnguyenquy.dao.RoleDao;
 import com.longnguyenquy.dao.UserDao;
+import com.longnguyenquy.dto.PasswordChanger;
 import com.longnguyenquy.dto.UserRegister;
 import com.longnguyenquy.entity.Role;
 import com.longnguyenquy.entity.User;
@@ -36,11 +37,28 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
+	public User getUser(long id) {
+		
+		return userDao.getUser(id);
+	}
+	
+	@Override
+	@Transactional
 	public User findByUserName(String userName) {
 	
 		return userDao.findByUserName(userName);
 	}
 
+	@Override
+	@Transactional
+	public User currentUser() {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		User user = findByUserName(username);
+		
+		return user;
+		
+	}
 	
 	@Override
 	@Transactional
@@ -65,15 +83,40 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public User currentUser() {
-		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	public void updateProfile(User userDto) {
 		
-		User user = findByUserName(username);
+		User user = userDao.getUser(userDto.getId());
 		
-		return user;
+		user.setFirstName(userDto.getFirstName());
+		user.setLastName(userDto.getLastName());
+		user.setEmail(userDto.getEmail());
+		user.setPhoneNumber(userDto.getPhoneNumber());
+		user.setAddress(userDto.getAddress());
 		
+		System.out.println(user);
+		
+		//userDao.save(user);
 	}
-
+	
+	@Override
+	@Transactional
+	public boolean changePassword(PasswordChanger userDto) {
+		
+		System.out.println("inside changepassword");
+		User user = currentUser();
+		boolean check = passwordEncoder.matches(userDto.getOldPassword(), user.getPassword());
+		if(check) {
+			
+			String newPassword = passwordEncoder.encode(userDto.getPassword());
+			System.out.println(newPassword);
+			user.setPassword(newPassword);
+			
+			return check;
+		}
+		return check;
+	}
+	
+	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

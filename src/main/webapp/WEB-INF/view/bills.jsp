@@ -58,6 +58,8 @@
       </c:forEach>
       
     </div>
+    <div><br></div>
+    <jsp:include page="footer.jsp"></jsp:include>
     <c:if test="${param.delete == true }">
     <script type="text/javascript"> alert("Delete bill successfully") </script>
     </c:if>

@@ -22,22 +22,25 @@
         <!-- Sidebar  -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Hogwarts bookstore</h3>
+               <a href="${pageContext.request.contextPath}/admin"><h3>Hogwarts bookstore</h3></a>
             </div>
 
             <ul class="list-unstyled components">
-                <p>Admin dashbroad</p>
+                <a href="${pageContext.request.contextPath}/admin"><p>Admin dashbroad</p></a>
                 <li class="active">
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Products</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="#">Categories</a>
+                            <a href="admin/categories">Categories</a>
                         </li>
                         <li>
                             <a href="#">All products</a>
                         </li>
                        
                     </ul>
+                </li>
+                 <li>
+                    <a href="#">Users</a>
                 </li>
                 <li>
                     <a href="#">Carts</a>
@@ -54,18 +57,19 @@
                         
                     </ul>
                 </li>
-                <li>
-                    <a href="#">Users</a>
-                </li>
+               
                 
             </ul>
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Log out</a>
+               		<form id="my_form" action="${pageContext.request.contextPath}/logout" method="POST">	
+						<a class="dropdown-item download" href="javascript:{}" onclick="document.getElementById('my_form').submit(); return false;">Logout</a>
+					</form>
                 </li>
+                <li><br></li>
                 <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to home</a>
+                    <a href="${pageContext.request.contextPath}/home" class="article">Back to home</a>
                 </li>
             </ul>
         </nav> 

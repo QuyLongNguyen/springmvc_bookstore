@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/books/addToCart").hasAnyRole("CUSTOMER");
 		http.authorizeRequests().antMatchers("/cart/**").hasAnyRole("CUSTOMER");
 		http.authorizeRequests().antMatchers("/bills/**").hasAnyRole("CUSTOMER");
-	
+		http.authorizeRequests().antMatchers("/user/**").hasAnyRole("CUSTOMER");
 	}
 	
 	@Bean
