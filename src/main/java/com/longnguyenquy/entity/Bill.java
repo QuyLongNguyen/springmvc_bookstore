@@ -90,6 +90,12 @@ public class Bill {
 	public void setStatusId(int statusId) {
 		this.statusId = statusId;
 	}
+
+	@Override
+	public String toString() {
+		return "Bill [billId=" + billId + ", user=" + user + ", dateCreated=" + dateCreated + ", status=" + status
+				+ ", billItems=" + billItems + ", statusId=" + statusId + "]";
+	}
 	
 	
 	

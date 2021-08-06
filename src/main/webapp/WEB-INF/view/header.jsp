@@ -86,7 +86,7 @@
 								<security:authorize access="hasRole('ROLE_ADMIN')">
 									<a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Admin page</a>
 								</security:authorize>
-							<a class="dropdown-item" href="">Action</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/bills">Your bills</a>
 							<a class="dropdown-item" href="#">Another action</a>
 							
 							<form id="my_form" action="${pageContext.request.contextPath}/logout" method="POST">

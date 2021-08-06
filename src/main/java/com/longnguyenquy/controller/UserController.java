@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.longnguyenquy.dto.UserDto;
+import com.longnguyenquy.dto.UserRegister;
 import com.longnguyenquy.entity.User;
 import com.longnguyenquy.service.UserService;
 
 @Controller
 @RequestMapping("/register")
-public class RegisterController {
+public class UserController {
 
 	@Autowired
 	private UserService userService;
@@ -34,13 +34,13 @@ public class RegisterController {
 	@GetMapping("/showRegistrationForm")
 	public String showRegistrationForm(Model model) {
 
-		model.addAttribute("userDto", new UserDto());
+		model.addAttribute("userDto", new UserRegister());
 
 		return "registration-form";
 	}
 
 	@PostMapping("/processRegistration")
-	public String processRegistration(@Valid @ModelAttribute("userDto") UserDto userDto, BindingResult bindingResult,
+	public String processRegistration(@Valid @ModelAttribute("userDto") UserRegister userDto, BindingResult bindingResult,
 			Model model) {
 		String userName = userDto.getUsername();
 
@@ -53,7 +53,7 @@ public class RegisterController {
 		// check the database if user already exists
 		User existing = userService.findByUserName(userName);
 		if (existing != null) {
-			model.addAttribute("crmUser", new UserDto());
+			model.addAttribute("crmUser", new UserRegister());
 			model.addAttribute("registrationError", "User name already exists.");
 
 			return "registration-form";

@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.longnguyenquy.dao.BookDao;
 import com.longnguyenquy.dao.CategoryDao;
-import com.longnguyenquy.dto.CategoryDto;
+import com.longnguyenquy.dto.CategoryAndBooks;
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 
@@ -59,13 +59,13 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	@Transactional
-	public List<CategoryDto> getCategoriesWithBooks(int number){
+	public List<CategoryAndBooks> getCategoriesWithBooks(int number){
 			
 		List<Category> categories = categoryDao.getCategories();
-		List<CategoryDto> categoriesDto  = new LinkedList<CategoryDto>();
+		List<CategoryAndBooks> categoriesDto  = new LinkedList<CategoryAndBooks>();
 		for(Category category: categories) {
 			List<Book> books = bookDao.getBooksByCategory(category.getCategoryId(), number);
-			categoriesDto.add(new CategoryDto(category.getCategoryName(), books));
+			categoriesDto.add(new CategoryAndBooks(category.getCategoryName(), books));
 		}
 		return categoriesDto;
 	}

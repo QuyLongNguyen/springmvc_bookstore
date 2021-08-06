@@ -1,6 +1,8 @@
 package com.longnguyenquy.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.longnguyenquy.validator.FieldMatch;
@@ -9,7 +11,7 @@ import com.longnguyenquy.validator.ValidEmail;
 @FieldMatch.List({
     @FieldMatch(first = "password", second = "matchingPassword", message = "The password fields must match")
 })
-public class UserDto {
+public class UserRegister {
 	@NotNull(message = "is required")
 	@Size(min = 1, message = "is required")
 	private String username;
@@ -35,15 +37,25 @@ public class UserDto {
 	@Size(min = 1, message = "is required")
 	@ValidEmail(message = "must match user_name@domain_name")
 	private String email;
-
-	public UserDto() {};
 	
-	public UserDto(String userName, String password, String firstName, String lastName,String email) {
+	@NotBlank(message = "is required")
+	@Pattern(regexp="(^$|[0-9]{0,12})" , message = "must be number")
+	private String phoneNumber;
+
+	@NotNull(message = "is required")
+	@Size(min = 5, message = "is required")
+	private String address;
+	
+	public UserRegister() {};
+	
+	public UserRegister(String userName, String password, String firstName, String lastName,String email, String phoneNumber, String address) {
 		this.username = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 	}
 
 	
@@ -97,5 +109,21 @@ public class UserDto {
 	}
 	public String getEmail() {
 		return email;
+	}
+
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 }

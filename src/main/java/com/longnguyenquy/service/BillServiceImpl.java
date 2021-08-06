@@ -1,5 +1,7 @@
 package com.longnguyenquy.service;
 
+
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.longnguyenquy.dao.BillDao;
+import com.longnguyenquy.dao.BillItemDao;
 import com.longnguyenquy.dao.StatusDao;
+
 import com.longnguyenquy.entity.Bill;
 import com.longnguyenquy.entity.BillItem;
 import com.longnguyenquy.entity.Status;
@@ -20,6 +24,9 @@ public class BillServiceImpl implements BillService {
 	
 	@Autowired
 	StatusDao statusDao;
+	
+	@Autowired 
+	BillItemDao billItemDao;
 	
 	@Autowired
 	UserService userService;
@@ -47,6 +54,27 @@ public class BillServiceImpl implements BillService {
 
 	@Override
 	@Transactional
+	public List<BillItem> getItemsOf(Bill bill){
+		
+		return billDao.getItemsOf(bill);
+	}
+	
+	@Override
+	@Transactional
+	public List<Status> getAllStatus(){
+		
+		return statusDao.getAllStatus();
+	}
+	
+	@Override
+	@Transactional
+	public BigDecimal getTotalPrice(Bill bill) {
+		
+		return billDao.getTotalPrice(bill);
+	}
+	
+	@Override
+	@Transactional
 	public void saveBill(Bill bill) {
 		
 		billDao.saveBill(bill);
@@ -67,17 +95,8 @@ public class BillServiceImpl implements BillService {
 	
 	@Override
 	@Transactional
-	public List<BillItem> getItemsOf(Bill bill){
-		
-		return billDao.getItemsOf(bill);
+	public void deleteBill(int id) {
+		 billDao.deleteBill(id);
 	}
-	
-	@Override
-	@Transactional
-	public List<Status> getAllStatus(){
-		
-		return statusDao.getAllStatus();
-	}
-	
 
 }

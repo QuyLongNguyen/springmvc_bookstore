@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.longnguyenquy.dao.BookDao;
 import com.longnguyenquy.dao.CategoryDao;
-import com.longnguyenquy.dto.CategoryDto;
+import com.longnguyenquy.dto.CategoryAndBooks;
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 

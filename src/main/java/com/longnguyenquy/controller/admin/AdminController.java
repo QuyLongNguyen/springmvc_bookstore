@@ -19,8 +19,8 @@ public class AdminController {
 	
 	@GetMapping(value = {"","/"})
 	public String showAdminPage() {
-		//System.out.println(servletContext.getRealPath("/"));
-		return "/admin/admin-page";
+		
+		return "/admin/index";
 	}
 	
 	

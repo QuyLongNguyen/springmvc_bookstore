@@ -1,5 +1,6 @@
 package com.longnguyenquy.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -51,6 +52,20 @@ public class BillDaoImpl implements BillDao {
 	}
 	
 	@Override
+	public BigDecimal getTotalPrice(Bill bill) {
+		
+		BigDecimal total = new BigDecimal(0);
+		
+		List<BillItem> billItems = getItemsOf(bill);
+		
+		for(BillItem billItem: billItems) {
+			total = total.add(billItem.getPrice());
+		}
+		
+		return total;
+	}
+	
+	@Override
 	public void saveBill(Bill bill) {
 		
 		Session session = sessionFactory.getCurrentSession();
@@ -72,4 +87,13 @@ public class BillDaoImpl implements BillDao {
 		return billItems;
 	}
 
+	@Override
+	public void deleteBill(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		Bill bill = session.get(Bill.class, id);
+		
+		session.delete(bill);
+		
+	}
 }

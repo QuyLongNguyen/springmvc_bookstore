@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.longnguyenquy.entity.Book;
 
-public class CategoryDto {
+public class CategoryAndBooks {
 
 	private String categoryName;
 	
 	private List<Book> books;
 
 	
-	public CategoryDto(String categoryName, List<Book> books) {
+	public CategoryAndBooks(String categoryName, List<Book> books) {
 		super();
 		this.categoryName = categoryName;
 		this.books = books;

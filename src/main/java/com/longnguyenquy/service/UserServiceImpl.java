@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.longnguyenquy.dao.RoleDao;
 import com.longnguyenquy.dao.UserDao;
-import com.longnguyenquy.dto.UserDto;
+import com.longnguyenquy.dto.UserRegister;
 import com.longnguyenquy.entity.Role;
 import com.longnguyenquy.entity.User;
 
@@ -44,14 +44,17 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public void save(UserDto userDto) {
+	public void save(UserRegister userDto) {
 		User user = new User();
+		
 		 // assign user details to the user object
 		user.setUserName(userDto.getUsername());
 		user.setPassword(passwordEncoder.encode(userDto.getPassword()));
 		user.setFirstName(userDto.getFirstName());
 		user.setLastName(userDto.getLastName());
 		user.setEmail(userDto.getEmail());
+		user.setPhoneNumber(userDto.getPhoneNumber());
+		user.setAddress(userDto.getAddress());
 
 		// give user default role of "employee"
 		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_CUSTOMER")));

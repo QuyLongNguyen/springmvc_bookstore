@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.longnguyenquy.dto.CategoryDto;
+import com.longnguyenquy.dto.CategoryAndBooks;
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
@@ -40,7 +40,7 @@ public class HomeController {
 		
 		model.addAttribute("categories", categories);
 		
-		List<CategoryDto> categoriesDto = categoryService.getCategoriesWithBooks(4);
+		List<CategoryAndBooks> categoriesDto = categoryService.getCategoriesWithBooks(4);
 	
 		model.addAttribute("categoriesDto", categoriesDto);
 		
@@ -49,10 +49,6 @@ public class HomeController {
 			model.addAttribute("cartCount", shoppingService.getCartItems().size());
 		}
 		
-		for(CategoryDto categoryDto: categoriesDto) {
-			System.out.println(categoryDto.getBooks());
-		}
-	
 		return "home";
 	}
 	

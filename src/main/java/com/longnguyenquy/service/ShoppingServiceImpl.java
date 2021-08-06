@@ -65,8 +65,10 @@ public class ShoppingServiceImpl implements ShoppingService {
 		int newQuantity = book.getQuantity()-item.getQuantity();
 		book.setQuantity(newQuantity);
 		
-		
 		Cart cart = user.getCart();
+		if(cart.getItems().size() == 0) {
+			cart.setDateCreated(new Date());
+		}
 		item.setCart(cart);
 		cart.getItems().add(item);
 		

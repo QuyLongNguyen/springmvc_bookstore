@@ -1,5 +1,6 @@
 package com.longnguyenquy.dao;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.longnguyenquy.entity.Bill;
@@ -11,10 +12,14 @@ public interface BillDao {
 	
 	List<Bill> getBills(long userId);
 	
+	List<BillItem> getItemsOf(Bill bill);
+	
+	BigDecimal getTotalPrice(Bill bill);
+	
 	Bill getBill(int id);
 	
 	void saveBill(Bill bill);
 	
-	List<BillItem> getItemsOf(Bill bill);
+	void deleteBill(int id);
 	
 }

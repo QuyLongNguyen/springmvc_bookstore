@@ -85,7 +85,7 @@
           			</form:form>
           		</div>
           	</c:if>
-          	<c:if test="${cartCount == 0 && param.buy == false}">
+          	<c:if test="${cartCount == 0 && empty param.buy }">
           		<div class="col-xl-4 border-right border-success">
           			<span class="h2">Cart is empty! </span>
           		</div>
@@ -93,6 +93,12 @@
           			
           			<div><a href="${pageContext.request.contextPath}/" 
           			class="btn btn-success w-100 h3" role="button"> Go to homepage </a></div>
+          			
+          		</div>
+          		<div class=" col-xl-3 ">
+          			
+          			<div><a href="${pageContext.request.contextPath}/bills" 
+          			class="btn btn-info w-100 h3" role="button"> Go to bills </a></div>
           			
           		</div>
           	</c:if>

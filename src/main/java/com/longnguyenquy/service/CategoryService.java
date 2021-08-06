@@ -2,7 +2,7 @@ package com.longnguyenquy.service;
 
 import java.util.List;
 
-import com.longnguyenquy.dto.CategoryDto;
+import com.longnguyenquy.dto.CategoryAndBooks;
 import com.longnguyenquy.entity.Category;
 
 public interface CategoryService {
@@ -13,7 +13,7 @@ public interface CategoryService {
 	
 	public Category getCategory(String name);
 	
-	List<CategoryDto> getCategoriesWithBooks(int number);
+	List<CategoryAndBooks> getCategoriesWithBooks(int number);
 	
 	public void saveOrUpdateCategory(Category category);
 	

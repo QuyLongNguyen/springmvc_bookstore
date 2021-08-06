@@ -40,6 +40,12 @@ public class User {
 
 	@Column(name = "email")
 	private String email;
+	
+	@Column(name = "phone_number")
+	private String phoneNumber;
+	
+	@Column(name = "address")
+	private String address;
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", 
@@ -55,22 +61,26 @@ public class User {
 	
 	public User() {};
 
-	public User(String userName, String password, String firstName, String lastName, String email,Cart cart) {
+	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address,Cart cart) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 		this.cart = cart;
 	}
 
-	public User(String userName, String password, String firstName, String lastName, String email, Cart cart,
+	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address, Cart cart,
 			Collection<Role> roles) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.address = address;
 		this.cart = cart;
 		this.roles = roles;
 	}
@@ -123,6 +133,24 @@ public class User {
 		this.email = email;
 	}
 
+	
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Collection<Role> getRoles() {
 		return roles;
 	}
@@ -148,11 +176,14 @@ public class User {
 		this.bill = bill;
 	}
 
+	
 	@Override
 	public String toString() {
-		return "User{" + "id=" + id + ", userName='" + userName + '\'' + ", password='" + "*********" + '\''
-				+ ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\''
-				+ ", roles=" + roles + '}';
+		return "User [id=" + id + ", userName=" + userName + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address="
+				+ address + ", roles=" + roles + ", cart=" + cart + ", bill=" + bill + "]";
 	}
+
+
 }
 
