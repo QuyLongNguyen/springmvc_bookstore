@@ -21,6 +21,7 @@ import com.longnguyenquy.entity.User;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,9 +38,38 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	@Transactional
+	public List<User> getUsers(){
+		
+		return userDao.getUsers();
+	}
+	
+	@Override
+	@Transactional
 	public User getUser(long id) {
 		
 		return userDao.getUser(id);
+	}
+	
+	@Override
+	@Transactional
+	public List<Role> getRoles(){
+		
+		return roleDao.getRoles();
+	}
+	
+	@Override
+	@Transactional
+	public void setRoles(User userDto) {
+		
+		User user = userDao.getUser(userDto.getId());
+		
+		Collection<Role> roles = userDto.getRoles();
+		user.getRoles().clear();
+		for(Role role: roles) {
+			role = roleDao.findRoleByName(role.getName());
+			user.getRoles().add(role);
+		}
+		
 	}
 	
 	@Override
@@ -54,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	public User currentUser() {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		
-		User user = findByUserName(username);
+		User user = userDao.findByUserName(username);
 		
 		return user;
 		

@@ -1,4 +1,4 @@
-package com.longnguyenquy.controller.admin;
+package com.longnguyenquy.admin.controller;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import com.longnguyenquy.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/books")
-public class BookAdminController {
+public class AdminBookController {
 
 	@Autowired
 	BookService bookService;
@@ -90,15 +90,19 @@ public class BookAdminController {
 	}
 	
 	@PostMapping("/save-book")
-	public String saveBook(@Valid @ModelAttribute("book") Book book, RedirectAttributes redirectAttributes ,BindingResult bindingResult) {
+	public String saveBook(@Valid @ModelAttribute("book") Book book,BindingResult bindingResult, Model model) {
+		
+		System.out.println("Outside the service");
 		if(bindingResult.hasErrors()) {
+			System.out.println("error");
+			List<Category> categories = categoryService.getCategories();
+			model.addAttribute("categories",categories);
 			return "/admin/book-form";
 		}
-		else {
-			bookService.saveOrUpdateBook(book);
-			redirectAttributes.addAttribute("categoryId", book.getCategoryId());
-			return "redirect:/admin/books?categoryId={categoryId}";
-		}
+		System.out.println("Inside the service");
+		bookService.saveOrUpdateBook(book);
+		return "redirect:/admin/books?add=true";
+		
 	}
 	
 	@GetMapping("/delete-book")

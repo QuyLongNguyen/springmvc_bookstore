@@ -9,8 +9,25 @@
   <body class="bg-light">
     <jsp:include page="header.jsp"></jsp:include>
     
+    
+    
+    <c:if test="${bills.size() == 0 }">
+    <div class="container bg-white p-3 border rounded" style="margin-top: 2%; margin-bottom: 13%">
+      <div class="row ">
+        <div class="col-xl-2 h3">
+         	No bills |
+        </div>
+        <div class="col-xl-2 ">
+        	<a href="${pageContext.request.contextPath}/home" class="btn btn-primary"> Go shopping </a>
+        </div>
+      </div>
+    </div>
+    </c:if>
+    
     <div><br></div>
-    <div class="container ">
+    
+    <c:if test="${bill.size() != 0 }">
+    <div class="container " style=" margin-bottom: 5%">
       <c:forEach items="${bills}" var="bill" varStatus="loop">
       <div class="container bg-white p-3 border rounded">
         <div class="row">
@@ -56,8 +73,10 @@
       </div>
       <div><br></div>
       </c:forEach>
-      
     </div>
+    </c:if>
+    
+    
     <div><br></div>
     <jsp:include page="footer.jsp"></jsp:include>
     <c:if test="${param.delete == true }">

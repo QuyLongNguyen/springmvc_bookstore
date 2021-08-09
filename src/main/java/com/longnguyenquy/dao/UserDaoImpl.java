@@ -1,5 +1,7 @@
 package com.longnguyenquy.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,6 +17,19 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Override
+	public List<User> getUsers(){
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<User> query = session.createQuery("from User", User.class);
+		
+		List<User> users = query.getResultList();
+		
+		return users;
+	}
+	
+	
 	@Override
 	public User getUser(long id) {
 		

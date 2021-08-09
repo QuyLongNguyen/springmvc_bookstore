@@ -1,4 +1,4 @@
-package com.longnguyenquy.controller.admin;
+package com.longnguyenquy.admin.controller;
 
 
 import javax.servlet.ServletContext;

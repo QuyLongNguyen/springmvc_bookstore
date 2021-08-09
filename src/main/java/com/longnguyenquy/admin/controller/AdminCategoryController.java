@@ -1,4 +1,4 @@
-package com.longnguyenquy.controller.admin;
+package com.longnguyenquy.admin.controller;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import com.longnguyenquy.service.CategoryService;
 
 @Controller
 @RequestMapping("/admin/categories")
-public class CategoryAdminController {
+public class AdminCategoryController {
 	
 	
 	@Autowired

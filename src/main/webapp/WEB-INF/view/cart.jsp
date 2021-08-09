@@ -10,6 +10,7 @@
     <jsp:include page="header.jsp"></jsp:include>
     <div> <br> </div>
     
+    <c:if test="${not empty items }">
     <c:set var="total" value="${0}"></c:set>
     <c:forEach items="${items}" var="item">
     
@@ -58,11 +59,29 @@
         </div>
       </div>
     </div>
+    
     <div><br></div>
     </c:forEach>
-  
-  <div class="container">
+      <div class="container">
       <div class="row justify-content-center">
+        <div class="col-xl-8 border border-success">
+          <div class="row p-3 bg-white">
+          	<c:if test="${cartCount != 0}">
+          		<div class="col-xl-4 border-right border-success">
+          			<span class="h2">Total: </span><span class="h2 text-danger">&nbsp $${total} </span>
+          		</div>
+          		<div class=" col-xl-3 ">
+          			<form:form action="cart/buy" method="post">
+          			<div><input type="submit" class="btn btn-success w-100 h3" role="button" value="Buy"></div>
+          			</form:form>
+          		</div>
+          	</c:if>
+          	</div></div></div></div>
+  </c:if>
+  
+  <c:if test="${cartCount == 0}">
+  <div class="container" style="margin-top:5%; margin-bottom: 17%">
+      <div class="row justify-content-center" >
         <div class="col-xl-8 border border-success">
           <div class="row p-3 bg-white">
           <c:if test="${param.buy == true}">
@@ -75,28 +94,17 @@
           			</form:form>
           		</div>
           	</c:if>
-          	<c:if test="${cartCount != 0}">
-          		<div class="col-xl-4 border-right border-success">
-          			<span class="h2">Total: </span><span class="h2 text-danger">&nbsp $${total} </span>
-          		</div>
-          		<div class=" col-xl-3 ">
-          			<form:form action="cart/buy" method="post">
-          			<div><input type="submit" class="btn btn-success w-100 h3" role="button" value="Buy"></div>
-          			</form:form>
-          		</div>
-          	</c:if>
-          	<c:if test="${cartCount == 0 && empty param.buy }">
+          
+          	<c:if test="${empty param.buy }">
           		<div class="col-xl-4 border-right border-success">
           			<span class="h2">Cart is empty! </span>
           		</div>
           		<div class=" col-xl-3 ">
-          			
           			<div><a href="${pageContext.request.contextPath}/" 
           			class="btn btn-success w-100 h3" role="button"> Go to homepage </a></div>
           			
           		</div>
           		<div class=" col-xl-3 ">
-          			
           			<div><a href="${pageContext.request.contextPath}/bills" 
           			class="btn btn-info w-100 h3" role="button"> Go to bills </a></div>
           			
@@ -106,11 +114,8 @@
          </div>
         </div>
     </div>
-    
-    <c:if test="${cartCount == 0}">
-     	<div><br><br><br><br><br><br><br><br><br></div>
     </c:if>
-  <div><br><br><br><br><br></div>
+    
   <jsp:include page="footer.jsp" ></jsp:include>
 </body>
 </html>

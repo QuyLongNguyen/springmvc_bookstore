@@ -1,5 +1,6 @@
 package com.longnguyenquy.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
+import com.longnguyenquy.entity.User;
 import com.longnguyenquy.service.CategoryService;
-import com.longnguyenquy.service.ShoppingService;
+import com.longnguyenquy.service.UserService;
+import com.longnguyenquy.service.CartService;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
@@ -24,10 +27,13 @@ import jdk.nashorn.internal.ir.RuntimeNode.Request;
 public class CartController {
 	
 	@Autowired
-	ShoppingService shoppingService;
+	CartService shoppingService;
 	
 	@Autowired
 	CategoryService categoryService;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping(value = {"/",""})
 	public String showCart(Model model,@RequestParam(required = false) boolean buy) {
@@ -36,10 +42,11 @@ public class CartController {
 		model.addAttribute("categories", categories);
 		
 		List<Item> items = shoppingService.getCartItems();
+		
 		model.addAttribute("items", items);
 		model.addAttribute("cartCount", items.size());
-		
 		return "cart";
+		
 	}
 	
 	@GetMapping("/updateItem")
@@ -53,7 +60,9 @@ public class CartController {
 	@GetMapping("/deleteItem")
 	public String deleteItem(@RequestParam("itemId") int itemId) {
 		
-		shoppingService.deleteItem(itemId);
+		User user = userService.currentUser();
+		
+		shoppingService.deleteItem(user.getId(), itemId);
 		
 		return "redirect:/cart";
 	}

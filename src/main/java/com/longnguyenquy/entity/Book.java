@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Entity
 @Table(name = "book")
 public class Book {
@@ -18,13 +17,17 @@ public class Book {
 	private int bookId;
 	
 	@Column(name = "title")
-	@NotBlank(message = "Title must not blank")
+	@NotEmpty(message = "Title must not blank")
+	@Size(min = 1, message = "is required")
 	private String title;
 	
 	@Column(name = "author")
+	@NotEmpty(message = "Author must not blank")
+	@Size(min = 1, message = "is required")
 	private String author;
 	
 	@Column(name = "publish_year")
+	@Min(value = 0, message = "must larger than 0")
 	private int publishYear;
 	
 	@Column(name = "cover")

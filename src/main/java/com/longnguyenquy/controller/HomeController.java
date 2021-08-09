@@ -17,7 +17,7 @@ import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.entity.User;
 import com.longnguyenquy.service.BookService;
 import com.longnguyenquy.service.CategoryService;
-import com.longnguyenquy.service.ShoppingService;
+import com.longnguyenquy.service.CartService;
 import com.longnguyenquy.service.UserService;
 
 @Controller
@@ -31,7 +31,7 @@ public class HomeController {
 	UserService userService;
 	
 	@Autowired
-	ShoppingService shoppingService;
+	CartService shoppingService;
 	
 	@GetMapping(value = {"/",""})
 	public String showHome(Model model) {

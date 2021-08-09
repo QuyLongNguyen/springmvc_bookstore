@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.longnguyenquy.dao.CartDao;
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
 import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.service.BookService;
-import com.longnguyenquy.service.ShoppingService;
+import com.longnguyenquy.service.CartService;
 import com.longnguyenquy.service.CategoryService;
 
 @Controller
@@ -32,22 +31,7 @@ public class BookController {
 	CategoryService categoryService;
 	
 	@Autowired
-	ShoppingService shoppingService;
-	
-	@GetMapping(value = {"/",""})
-	public String showBooks( Model model) {
-		
-		List<Book> books = bookService.getBooks();
-		model.addAttribute("books", books);
-		
-		List<Item> items = shoppingService.getCartItems();
-		model.addAttribute("cartCount", items.size());
-		
-		Item item = new Item();
-		model.addAttribute("item", item);
-		
-		return "books";
-	}
+	CartService shoppingService;
 	
 	@GetMapping(value = {"/",""}, params = {"keyword"})
 	public String showBooks(@RequestParam("keyword") String keyword ,  Model model) {
@@ -68,6 +52,7 @@ public class BookController {
 		return "books";
 	}
 	
+	/*
 	@GetMapping(value = {"/",""}, params = {"categoryName"} )
 	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName, Model model) {
 		
@@ -87,6 +72,27 @@ public class BookController {
 		
 		return "books";
 	}
+	*/
+	@GetMapping(value = {"/",""}, params = {"categoryName","page"} )
+	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName,@RequestParam("page") int page, Model model) {
+		
+		List<Category> categories = categoryService.getCategories();
+		model.addAttribute("categories", categories);
+		
+		List<Book> books = bookService.getBooksSegment(categoryName, page * 2, 2);
+		if(page > books.size()) {
+			return "404";
+		}
+		
+		model.addAttribute("books", books);
+		
+		if(shoppingService.getCartItems() != null) {
+			model.addAttribute("cartCount", shoppingService.getCartItems().size());
+		}
+		
+		return "books";
+	}
+	
 	
 	@GetMapping("/{id}")
 	public String showBook(@PathVariable int id,@RequestParam(required = false) boolean buy, Model model) {

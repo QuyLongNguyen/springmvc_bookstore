@@ -12,7 +12,7 @@ public interface BookDao {
 	
 	public List<Book> getBooksByCategory(int categoryId,int number);
 	
-	public List<Book> getBooksPerPage(int categoryId,int offset, int limit);
+	public List<Book> getBooksSegment(String categoryName,int start, int length);
 	
 	public List<Book> findBooksByTitle(String keyword);
 	

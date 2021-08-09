@@ -8,26 +8,23 @@
       <jsp:include page="sidebar.jsp"></jsp:include>
       <!-- Page Content  -->
       <div id="content">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="container-fluid">
-            <button type="button" id="sidebarCollapse" class="btn btn-info">
-            <i class="fas fa-align-left"></i>
-            <span></span>
-            </button>
-            <button class="btn btn-dark d-inline-block d-lg-none ml-auto"
-            type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fas fa-align-justify"></i>
-            </button>
-            
-          </div>
-        </nav>
+       	<div class="row mb-3">
        	
+       		<div class="col-xl-1">
+       			<button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                 </button>
+       		</div>
+       	<div class="col-xl-10 text-center h3">
+        	Categories Management
+         </div>
+         </div>
+         
        	<div class="row mb-3">
        	<div class="col-xl-3">
-        	<button type="button" class="btn btn-info ">
+        	<a role="button" class="btn btn-info" href="categories/add-category">
            		Add category
-         	</button>
+         	</a>
          </div>
          </div>
          
@@ -58,7 +55,7 @@
               <td>${category.categoryName}</td>
               <td><a href="${viewBook}">View</a></td>
               <td><a href="${updateLink}"> Update </a></td>
-              <td><a  href="${deleteLink}"> Delete</a></td>
+              <td><a href="${deleteLink}" onclick="return confirm('Are you want to delete ${category.categoryName} ?')"> Delete</a></td>
             </tr>
             
             </c:forEach>

@@ -23,8 +23,29 @@ public class CartDaoImpl implements CartDao {
 	UserDao userDao;
 	
 	@Override
-	public
-	void saveCart(Cart cart) {
+	public List<Cart> getCarts(){
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Query<Cart> query = session.createQuery("from Cart", Cart.class);
+		
+		List<Cart> carts = query.getResultList();
+		
+		return carts;
+	}
+	
+	@Override
+	public Cart getCart(int cartId){
+		
+		Session session = sessionFactory.getCurrentSession();
+		
+		Cart cart = session.get(Cart.class, cartId);
+		
+		return cart;
+	}
+	
+	@Override
+	public void saveCart(Cart cart) {
 		Session session = sessionFactory.getCurrentSession();
 		
 		session.save(cart);

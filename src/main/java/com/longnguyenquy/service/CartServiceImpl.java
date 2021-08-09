@@ -23,7 +23,7 @@ import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.entity.User;
 
 @Service
-public class ShoppingServiceImpl implements ShoppingService {
+public class CartServiceImpl implements CartService {
 
 	@Autowired
 	CartDao cartDao;
@@ -49,32 +49,56 @@ public class ShoppingServiceImpl implements ShoppingService {
 	
 	@Override
 	@Transactional
+	public Cart getCart(int cartId) {
+		return cartDao.getCart(cartId);
+	}
+	
+	@Override
+	@Transactional
+	public List<Cart> getCarts(){
+		return cartDao.getCarts();
+	}
+	
+	@Override
+	@Transactional
+	public void createCart(String username) {
+		User user = userService.findByUserName(username);
+		Cart cart = user.getCart();
+		cart =  new Cart(user, new Date() ,new LinkedList<Item>());
+		cartDao.saveCart(cart);
+	}
+	
+	@Override
+	@Transactional
 	public void addItem(Item item) {
 		
 		User user = userService.currentUser();
-		
-		if(user.getCart() == null) {
-			Cart cart = new Cart(user, new Date() ,new LinkedList<Item>());
-			user.setCart(cart);
-			cartDao.saveCart(cart);
-		}
-		
-		Book book = bookDao.getBook(item.getBookId());	
-		item.setBook(book);
-		
-		int newQuantity = book.getQuantity()-item.getQuantity();
-		book.setQuantity(newQuantity);
-		
 		Cart cart = user.getCart();
-		if(cart.getItems().size() == 0) {
-			cart.setDateCreated(new Date());
-		}
-		item.setCart(cart);
-		cart.getItems().add(item);
 		
-		itemDao.saveItem(item);
-
+		List<Item> items = cart.getItems();
+		boolean isDuplicateItem = false;
+	
+		for(Item i: items ) {
+			if(i.getBook().getBookId() == item.getBookId()) {
+				i.setQuantity(i.getQuantity()+item.getQuantity());
+				isDuplicateItem = true;
+				break;
+			}
+		}
+		Book book = bookDao.getBook(item.getBookId());
+		
+		if(!isDuplicateItem) {
+			item.setBook(book);
+			item.setCart(cart);
+			items.add(item);
+			itemDao.saveItem(item);
+		}
+		
+		book.setQuantity(book.getQuantity()-item.getQuantity());
+			
 	}
+	
+	
 	@Override
 	@Transactional
 	public void updateItem(int itemId, int quantity) {
@@ -100,9 +124,9 @@ public class ShoppingServiceImpl implements ShoppingService {
 
 	@Override
 	@Transactional
-	public void deleteItem(int itemId) {
+	public void deleteItem(long userId, int itemId) {
 		
-		User user = userService.currentUser();
+		User user = userService.getUser(userId);
 		
 		Cart cart = user.getCart();
 		
@@ -134,6 +158,15 @@ public class ShoppingServiceImpl implements ShoppingService {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<Item> getCartItemsOf(int cartId) {
+	
+		Cart cart = cartDao.getCart(cartId);
+		
+		return cartDao.getItemsOf(cart);
+		
+	}
 	
 	@Override
 	@Transactional

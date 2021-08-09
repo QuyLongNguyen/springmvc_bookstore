@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.longnguyenquy.dto.UserRegister;
 import com.longnguyenquy.entity.User;
+import com.longnguyenquy.service.CartService;
 import com.longnguyenquy.service.UserService;
 
 @Controller
@@ -24,6 +25,9 @@ public class RegisterController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private CartService shoppingService;
 
 	@InitBinder
 	public void initBinder(WebDataBinder dataBinder) {
@@ -47,7 +51,6 @@ public class RegisterController {
 
 		// form validation
 		if (bindingResult.hasErrors()) {
-			System.out.println("error");
 			return "registration-form";
 		}
 
@@ -61,7 +64,10 @@ public class RegisterController {
 		}
 		// create user account
 		userService.save(userDto);
-
+		
+		//create avaible cart for user
+		shoppingService.createCart(userName);
+		
 		return "registration-confirmation";
 	}
 }

@@ -17,7 +17,17 @@
 
         <!-- Page Content  -->
         <div id="content">
+	<div class="row mb-3">
 
+       		<div class="col-xl-1">
+       			<button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                 </button>
+       	</div>
+       	<div class="col-xl-10 text-center h3">
+        	Admin dashbroad
+         </div>
+         </div>
             
 
 		

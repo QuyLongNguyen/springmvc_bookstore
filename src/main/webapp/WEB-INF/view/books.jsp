@@ -39,7 +39,7 @@ prefix="security"%>
 				
 				<c:url var="viewDetail" value="/books"></c:url>
 				
-				<div class="col-2 ">
+				<div class="col-xl-2 ">
 					
 					<img alt="image" class="img-fluid" src="${pageContext.request.contextPath}/resources/images/${book.cover}">
 					
@@ -56,6 +56,55 @@ prefix="security"%>
 				</div>
 			</div>
 		</div>
+		
+  <ul class="pagination justify-content-center mt-3">
+
+
+	<c:choose>
+		<c:when test="${param.page > 0  }">
+			<c:url var="previousPage" value="/books">
+				<c:param name="categoryName" value="${param.categoryName}"></c:param>
+				<c:param name="page" value="${param.page-1}"></c:param>
+			</c:url>
+			 <li class="page-item">
+   				<a class="page-link" href="${previousPage}">Previous</a>
+    		</li>
+		</c:when>
+		<c:otherwise>
+			<li class="page-item disabled">
+   				<a class="page-link" href="#">Previous</a>
+    		</li>
+		</c:otherwise>
+	</c:choose>
+    
+
+    <c:forEach begin="${0}" end="${books.size()/2}" varStatus="loop">
+   	<c:url var="page" value="books">
+   			<c:param name="categoryName" value="${param.categoryName}"></c:param>
+   			<c:param name="page" value="${loop.index}"></c:param>
+   	</c:url>
+   	
+    <li class="page-item"><a class="page-link" href="${page}">${loop.index}</a></li>
+ 	 </c:forEach>
+  
+    <c:choose>
+		<c:when test="${param.page < books.size() / 2  }">
+			<c:url var="nextPage" value="/books">
+				<c:param name="categoryName" value="${param.categoryName}"></c:param>
+				<c:param name="page" value="${param.page+1}"></c:param>
+			</c:url>
+			 <li class="page-item">
+   				<a class="page-link" href="${nextPage}">Next</a>
+    		</li>
+		</c:when>
+		<c:otherwise>
+			<li class="page-item disabled">
+   				<a class="page-link" href="#">Next</a>
+    		</li>
+		</c:otherwise>
+	</c:choose>
+  </ul>
+
 		<div><br></div>
 		<jsp:include page="footer.jsp"></jsp:include>
 		

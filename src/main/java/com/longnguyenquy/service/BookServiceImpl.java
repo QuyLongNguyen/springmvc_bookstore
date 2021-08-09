@@ -52,6 +52,13 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	@Transactional
+	public List<Book> getBooksSegment(String categoryName, int start, int length){
+		
+		return bookDao.getBooksSegment(categoryName, start, length);
+	}
+	
+	@Override
+	@Transactional
 	public List<Book> findBooksByKeyword(String keyword){
 		
 		return bookDao.findBooksByTitle(keyword);

@@ -31,25 +31,25 @@
                     <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Products</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="admin/categories">Categories</a>
+                            <a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
                         </li>
                         <li>
-                            <a href="#">All products</a>
+                            <a href="${pageContext.request.contextPath}/admin/books">All products</a>
                         </li>
                        
                     </ul>
                 </li>
                  <li>
-                    <a href="#">Users</a>
+                    <a href="${pageContext.request.contextPath}/admin/users">Users</a>
                 </li>
                 <li>
-                    <a href="#">Carts</a>
+                    <a href="${pageContext.request.contextPath}/admin/carts">Carts</a>
                 </li>
                 <li>
                     <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sales</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="#">Bills</a>
+                            <a href="${pageContext.request.contextPath}/admin/bills">Bills</a>
                         </li>
                         <li>
                             <a href="#">Sales stats</a>

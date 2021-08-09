@@ -39,7 +39,6 @@ public class BillController {
 			totals.add(billService.getTotalPrice(bill));
 
 		}
-
 		model.addAttribute("totals", totals);
 
 		return "bills";

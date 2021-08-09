@@ -19,6 +19,7 @@ prefix="security"%>
 		<c:forEach items="${categoriesDto}" var="category">
 		<c:url var="viewMore" value="/books">
 					<c:param name="categoryName" value="${category.categoryName}"></c:param>
+					<c:param name="page" value="${0}"></c:param>
 				</c:url>
 				
 				<c:url var="viewDetail" value="/books"> </c:url>

@@ -1,4 +1,4 @@
-package com.longnguyenquy.controller.admin;
+package com.longnguyenquy.admin.controller;
 
 import java.util.List;
 
@@ -19,7 +19,7 @@ import com.longnguyenquy.service.BillService;
 
 @Controller
 @RequestMapping("/admin/bills")
-public class BillAdminController {
+public class AdminBillController {
 
 	@Autowired
 	BillService billService;

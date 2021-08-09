@@ -64,14 +64,14 @@ public class BookDaoImpl implements BookDao {
 	
 	
 	@Override
-	public List<Book> getBooksPerPage(int categoryId, int offset, int limit) {
+	public List<Book> getBooksSegment(String categoryName, int start, int length) {
 		Session session = sessionFactory.getCurrentSession();
 
 		Query<Book> query = session.createQuery("select b from Book b join b.category c "
-				+ "where c.categoryId = :categoryId",Book.class);
-		query.setParameter("categoryId", categoryId);
-		query.setFirstResult(offset);
-		query.setMaxResults(limit);
+				+ "where c.categoryName = :categoryName",Book.class);
+		query.setParameter("categoryName", categoryName);
+		query.setFirstResult(start);
+		query.setMaxResults(length);
 
 		List<Book> books = (List<Book>) query.getResultList();
 

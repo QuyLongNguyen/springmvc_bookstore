@@ -1,5 +1,7 @@
 package com.longnguyenquy.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,6 +17,17 @@ public class RoleDaoImpl implements RoleDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Override
+	public List<Role> getRoles(){
+		Session currentSession = sessionFactory.getCurrentSession();
+		
+		Query<Role> query = currentSession.createQuery("from Role",Role.class);
+		
+		List<Role> roles = query.getResultList();
+		
+		return roles;
+	}
+	
 	@Override
 	public Role findRoleByName(String theRoleName) {
 
