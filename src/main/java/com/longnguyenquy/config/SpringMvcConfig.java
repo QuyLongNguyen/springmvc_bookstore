@@ -4,7 +4,6 @@ import java.beans.PropertyVetoException;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
@@ -58,7 +57,6 @@ public class SpringMvcConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	
 		WebMvcConfigurer.super.addResourceHandlers(registry);
-		//registry.addResourceHandler("/admin/**").addResourceLocations("/resources/");
 		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
 
