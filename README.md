@@ -9,7 +9,7 @@ Perform basic business logic about _e-commerce website_
 ![Shema](schema.png)
 
 #### b. Basic workflow
-
+![Workflow](workflow.png)
 
 ## 2. Prerequisites
 * JDK 8 or higher
