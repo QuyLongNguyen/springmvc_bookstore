@@ -5,7 +5,7 @@
 ### 1. Overview
 Perform basic business logic about _e-commerce website_
 #### a. Database schema
-![Database schema](https://photos.app.goo.gl/bRecPSW3jDrSedfB6)
+(https://photos.app.goo.gl/bRecPSW3jDrSedfB6)
 
 #### b. Basic workflow
 
