@@ -55,6 +55,14 @@
 					<a href="${pageContext.request.contextPath}/register">Register New User</a>	
 				</div>
 				<div class="mb-3">
+					<a href="https://accounts.google.com/o/oauth2/auth?
+					scope=email
+					&redirect_uri=http://localhost:8080/hogwarts-bookstore/login/google
+					&response_type=code
+  					&client_id=620331720388-sgff3utkvvg2hl52r8j8eultsqeff6a2.apps.googleusercontent.com
+  					">Login With Google</a>  	
+				</div>
+				<div class="mb-3">
 					<a href="${pageContext.request.contextPath}/">Homepage</a>	
 				</div>
 				</div>

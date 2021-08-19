@@ -36,6 +36,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @ComponentScan(basePackages = "com.longnguyenquy")
 @PropertySource({"classpath:application.properties" })
 public class SpringMvcConfig implements WebMvcConfigurer {
+	
 	@Autowired
 	private Environment env;
 
