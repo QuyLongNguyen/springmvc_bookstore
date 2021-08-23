@@ -31,14 +31,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
 		auth.authenticationProvider(authenticationProvider());
+	
 	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.formLogin().loginPage("/login").loginProcessingUrl("/authenticate")
-		.and().logout().logoutSuccessUrl("/home")
+		.and().logout().logoutSuccessUrl("/home").deleteCookies("JSESSIONID")
 		.and().exceptionHandling().accessDeniedPage("/login/access-denied")
+		.and().rememberMe().key("uniqueAndSecret").userDetailsService(userService).tokenValiditySeconds(24*60*60)
 		.and().csrf().disable();
 		
 		http.authorizeRequests().antMatchers("/admin/**").hasAnyRole("ADMIN");

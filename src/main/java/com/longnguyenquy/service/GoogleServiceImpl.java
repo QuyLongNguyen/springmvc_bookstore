@@ -20,9 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.longnguyenquy.dto.GoogleAccount;
 
-
 @Component
-@PropertySource({"classpath:application.properties" })
 public class GoogleServiceImpl implements GoogleService {
 
 	@Autowired
@@ -56,7 +54,7 @@ public class GoogleServiceImpl implements GoogleService {
 	    String response = Request.Get(link).execute().returnContent().asString();
 	    ObjectMapper mapper = new ObjectMapper();
 	    GoogleAccount googleAccount = mapper.readValue(response, GoogleAccount.class);
-	    System.out.println(googleAccount);
+	
 	    return googleAccount;
 	  }
 	

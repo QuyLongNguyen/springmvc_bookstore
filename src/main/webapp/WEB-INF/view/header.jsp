@@ -58,7 +58,7 @@
 				</div>
 				
 				<div class="col-xl-1 text-white dropdown mr-5" style="padding-left:0;padding-right:0;">
-					<a class="btn btn-primary dropdown-toggle" href="#" role="button"
+					<a class="btn btn-primary dropdown-toggle " href="#" role="button"
 						id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">
 						<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person " viewBox="0 0 16 16">
@@ -69,10 +69,12 @@
 							</security:authorize>
 							
 							<security:authorize access="isAuthenticated()">
-							
+							<span class=" text-truncate">
 							<security:authentication property="principal" var="principal"/>
 							${principal.username}
+							</span>
 							</security:authorize>
+						
 						</a>
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 							

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.longnguyenquy.dto.GoogleAccount;
 import com.longnguyenquy.entity.User;
 import com.longnguyenquy.service.GoogleService;
+import com.longnguyenquy.service.UserService;
 
 
 @Controller
@@ -23,6 +24,9 @@ public class LoginController {
 	
 	@Autowired
 	GoogleService googleService;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("")
 	public String showLoginForm() {
@@ -36,14 +40,12 @@ public class LoginController {
 		if (code == null || code.isEmpty()) {
 		     return "redirect:/login?google=error";
 		 }
-		System.out.println("This code: " + code);
-		String accessToken = googleService.getToken(code);
+		
+		String accessToken = googleService.getToken(code);	
 		GoogleAccount account = googleService.getUserInfo(accessToken);
 		UserDetails userDetails = googleService.buildUser(account);
-		
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-		        userDetails.getAuthorities());
-		
+		UsernamePasswordAuthenticationToken authentication = 
+				new UsernamePasswordAuthenticationToken(userDetails, null,userDetails.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		

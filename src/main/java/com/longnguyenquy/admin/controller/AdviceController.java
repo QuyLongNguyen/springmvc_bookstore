@@ -14,11 +14,14 @@ public class AdviceController {
 	public String handle404Error(Exception e) {
 		return "404";
 	}
-	/*
+	
+	
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public String handle400Error(Exception e) {
+	public String handleError400(Exception e) {
 		return "400";
 	}
-	*/
+	
+	
+	
 }
