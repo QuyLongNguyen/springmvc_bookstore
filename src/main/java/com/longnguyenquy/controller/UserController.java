@@ -57,7 +57,6 @@ public class UserController {
 		
 		System.out.println(userDto);
 		if (bindingResult.hasErrors()) {
-			System.out.println("error");
 			return "user-profile";
 		}
 		

@@ -15,13 +15,13 @@ public class AdviceController {
 		return "404";
 	}
 	
-	
+	/*
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public String handleError400(Exception e) {
 		return "400";
 	}
 	
-	
+	*/
 	
 }

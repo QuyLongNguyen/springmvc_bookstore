@@ -78,6 +78,20 @@ public class UserServiceImpl implements UserService {
 	
 		return userDao.findByUserName(userName);
 	}
+	
+	@Override
+	@Transactional
+	public User findByEmail(String email) {
+		
+		return userDao.findByEmail(email);
+	}
+	
+	@Override
+	@Transactional
+	public User findByToken(String token) {
+		
+		return userDao.findByToken(token);
+	}
 
 	@Override
 	@Transactional
@@ -113,6 +127,14 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
+	public void save(User user) {
+		
+		userDao.save(user);
+	}
+	
+	
+	@Override
+	@Transactional
 	public void updateProfile(User userDto) {
 		
 		User user = userDao.getUser(userDto.getId());
@@ -123,8 +145,6 @@ public class UserServiceImpl implements UserService {
 		user.setPhoneNumber(userDto.getPhoneNumber());
 		user.setAddress(userDto.getAddress());
 		
-		System.out.println(user);
-		
 		//userDao.save(user);
 	}
 	
@@ -132,18 +152,25 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public boolean changePassword(PasswordChanger userDto) {
 		
-		System.out.println("inside changepassword");
 		User user = currentUser();
 		boolean check = passwordEncoder.matches(userDto.getOldPassword(), user.getPassword());
 		if(check) {
-			
 			String newPassword = passwordEncoder.encode(userDto.getPassword());
-			System.out.println(newPassword);
 			user.setPassword(newPassword);
-			
 			return check;
 		}
 		return check;
+	}
+	
+	@Override
+	@Transactional
+	public boolean resetPassword(PasswordChanger passwordChanger) {
+		
+		User user = userDao.findByToken(passwordChanger.getOldPassword());
+		String password = passwordEncoder.encode(passwordChanger.getPassword());
+		user.setPassword(password);
+		user.setResetPasswordToken(null);
+		return true;
 	}
 	
 	
@@ -161,4 +188,6 @@ public class UserServiceImpl implements UserService {
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
+
+	
 }

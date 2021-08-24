@@ -59,6 +59,38 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
+	public User findByEmail(String email) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		User user = null;
+		try {
+			Query<User> query = session.createQuery("from User where email = :email",User.class);
+			query.setParameter("email", email);
+			user = query.getSingleResult();
+			
+		}catch (RuntimeException e) {
+			user = null;
+		}
+		return user;
+	}
+	
+	@Override
+	public User findByToken(String token) {
+		
+		Session session = sessionFactory.getCurrentSession();
+		User user = null;
+		try {
+			Query<User> query = session.createQuery("from User where resetPasswordToken = :token",User.class);
+			query.setParameter("token",token);
+			user = query.getSingleResult();
+			
+		}catch (RuntimeException e) {
+			user = null;
+		}
+		return user;
+	}
+	
+	@Override
 	public void save(User theUser) {
 		// get current hibernate session
 		Session currentSession = sessionFactory.getCurrentSession();
@@ -66,5 +98,8 @@ public class UserDaoImpl implements UserDao {
 		// create the user ... finally LOL
 		currentSession.saveOrUpdate(theUser);
 	}
+
+
+
 
 }

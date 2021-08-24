@@ -22,64 +22,48 @@
 			<div class="col-xl-5 border bg-white rounded">
 				<div class="row ">
 					<div class="col-xl-12 p-2 text-center mb-4 bg-primary rounded-top ">
-						<span class="h3 text-white"> Login </span>
+						<span class="h3 text-white"> Reset password </span>
 					</div>
 				</div>
 
-				<form:form action="${pageContext.request.contextPath}/authenticate"
-					method="POST">
+				<form:form action="${pageContext.request.contextPath}/login/resetPassword"
+					modelAttribute="passwordChanger" method="POST">
+					
 					<!-- Check for login error -->
-					<c:if test="${param.error != null }">
-						<i class="failed">Sorry! You entered invalid </i>
+					<c:if test="${error != null }">
+						<i class="failed"> ${error}</i>
 					</c:if>
-
-					<div class="form-group row">
-						<label class="col-form-label col-xl-3">Username: </label>
-						<div class="col-xl-7">
-							<input type="text" class="form-control" name="username" />
-						</div>
-					</div>
 
 					<div class="form-group row">
 						<label class="col-form-label col-xl-3">Password: </label>
 						<div class="col-xl-7">
-							<input type="password" class="form-control" name="password" />
+							<form:input type="password" class="form-control" path="password"/>
+							<form:errors cssClass="failed" path="password"> </form:errors>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-form-label col-xl-3">Confirm password: </label>
+						<div class="col-xl-7">
+							<form:input type="password" class="form-control" path="matchingPassword"/>
+							<form:errors cssClass="failed" path="matchingPassword"> </form:errors>
 						</div>
 					</div>
 
-					<div class="form-group row mt-2">
-						<div class="col-xl-3" ></div>
-						<div class="form-check col-xl-7 ml-3">
-							<input class="form-check-input" type="checkbox" id="gridCheck" name="remember-me">
-							<label class="form-check-label" for="gridCheck"> Remember me </label>
-						</div>
-						
-					</div>
+					<form:hidden path="oldPassword"/>
 
 					<div class="form-group row justify-content-around">
 						<div class="col-xl-3">
 							<input type="submit" class="form-control btn-primary"
-								value="Login" />
+								value="Send" />
 						</div>
 					</div>
 				</form:form>
-				<div class="mb-3">
-					<a href="${pageContext.request.contextPath}/register">Register New User</a>
-				</div>
 				
-				<div class="mb-3">
-					<a href="${pageContext.request.contextPath}/login/forgetPassword">Forget password</a>
-				</div>
+				<c:if test="${message != null }">
+						<i class="text-success"> ${message}</i>
+					</c:if>
 				
-				<div class="mb-3">
-					<a href="https://accounts.google.com/o/oauth2/auth?
-					scope=email
-					&redirect_uri=http://localhost:8080/hogwarts-bookstore/login/google
-					&response_type=code
-  					&client_id=620331720388-sgff3utkvvg2hl52r8j8eultsqeff6a2.apps.googleusercontent.com
-  					">Login
-						With Google</a>
-				</div>
 				<div class="mb-3">
 					<a href="${pageContext.request.contextPath}/">Homepage</a>
 				</div>

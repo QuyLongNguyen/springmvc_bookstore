@@ -64,6 +64,9 @@ public class User {
 	@NotNull(message = "is required")
 	@Size(min = 5, message = "is required")
 	private String address;
+	
+	@Column(name = "reset_password_token")
+	private String resetPasswordToken;
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "users_roles", 
@@ -153,7 +156,6 @@ public class User {
 	}
 
 	
-	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -168,6 +170,14 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
 	}
 
 	public Collection<Role> getRoles() {

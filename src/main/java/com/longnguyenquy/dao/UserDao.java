@@ -12,6 +12,10 @@ public interface UserDao {
 	
     User findByUserName(String userName);
     
+    User findByEmail(String email);
+    
+    User findByToken(String token);
+     
     void save(User user);
     
 }
