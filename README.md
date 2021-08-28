@@ -21,4 +21,4 @@ Perform basic business logic about _e-commerce website_
 
 1. Edit _dependencies version_ compatible for yours
 2. Import this maven project to IDE
-3. Run with _tomcat_
+3. Run with _Apache tomcat_
