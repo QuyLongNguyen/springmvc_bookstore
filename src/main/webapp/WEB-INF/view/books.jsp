@@ -56,7 +56,7 @@ prefix="security"%>
 				</div>
 			</div>
 		</div>
-		
+<!-- 	
   <ul class="pagination justify-content-center mt-3">
 
 
@@ -83,7 +83,7 @@ prefix="security"%>
    			<c:param name="categoryName" value="${param.categoryName}"></c:param>
    			<c:param name="page" value="${loop.index}"></c:param>
    	</c:url>
-   	
+  
     <li class="page-item"><a class="page-link" href="${page}">${loop.index}</a></li>
  	 </c:forEach>
   
@@ -104,7 +104,7 @@ prefix="security"%>
 		</c:otherwise>
 	</c:choose>
   </ul>
-
+ -->
 		<div><br></div>
 		<jsp:include page="footer.jsp"></jsp:include>
 		

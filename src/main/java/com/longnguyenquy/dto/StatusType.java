@@ -3,7 +3,7 @@ package com.longnguyenquy.dto;
 public enum StatusType {
 
 	// enum fields
-	PENDING(1), CONFIRMED(2), CANCELLED(3), READY(4) , SHIPPING(5) , REFUNDED(6);
+	PENDING(1), CONFIRMED(2), CANCELLED(3), READY(4) , SHIPPING(5) , RECEIVED(6) ,REFUNDED(7);
  
     // constructor
     private StatusType(final int value) {

@@ -74,16 +74,18 @@ public class BookController {
 	}
 	*/
 	@GetMapping(value = {"/",""}, params = {"categoryName","page"} )
-	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName,@RequestParam("page") int page, Model model) {
+	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName,@RequestParam(value = "page", required = false) int page, Model model) {
 		
 		List<Category> categories = categoryService.getCategories();
 		model.addAttribute("categories", categories);
 		
+		/*
 		List<Book> books = bookService.getBooksSegment(categoryName, page * 2, 2);
 		if(page > books.size()) {
 			return "404";
 		}
-		
+		*/
+		List<Book> books = bookService.getBooks(categoryService.getCategory(categoryName).getCategoryId());
 		model.addAttribute("books", books);
 		
 		if(shoppingService.getCartItems() != null) {
