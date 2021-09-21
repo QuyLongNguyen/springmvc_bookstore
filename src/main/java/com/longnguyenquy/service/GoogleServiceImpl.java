@@ -1,30 +1,35 @@
 package com.longnguyenquy.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.Optional;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.fluent.Form;
 import org.apache.http.client.fluent.Request;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.longnguyenquy.dto.GoogleAccount;
+import com.longnguyenquy.entity.User;
+
+import net.bytebuddy.utility.RandomString;
 
 @Component
 public class GoogleServiceImpl implements GoogleService {
 
 	@Autowired
 	private Environment env;
+	
+	@Autowired
+	private UserService userSevice;
+	
+	@Autowired
+	private CartService cartService;
 	
 	@Override
 	public String getToken(String code) throws ClientProtocolException,  IOException {
@@ -58,17 +63,24 @@ public class GoogleServiceImpl implements GoogleService {
 	    return googleAccount;
 	  }
 	
+
 	@Override
-	public UserDetails buildUser(GoogleAccount googleAccount) {
-	    boolean enabled = true;
-	    boolean accountNonExpired = true;
-	    boolean credentialsNonExpired = true;
-	    boolean accountNonLocked = true;
-	    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-	    authorities.add(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
-	    UserDetails userDetail = new User(googleAccount.getEmail(),
-	        "", enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-	    return userDetail;
-	  }
+	public User buildUser(GoogleAccount googleAccount) {
+		
+		User user = userSevice.findByUserName(googleAccount.getEmail());
+		if(user == null) {
+			user = new com.longnguyenquy.entity.User(googleAccount.getEmail(),
+														RandomString.make(16),
+														Optional.ofNullable(googleAccount.getGiven_name()).orElse("unknown"), 
+														Optional.ofNullable(googleAccount.getFamily_name()).orElse("unknown"), 
+														googleAccount.getEmail(), 
+														"0000000000", 
+														"unknown");
+			userSevice.save(user);
+			cartService.createCart(googleAccount.getEmail());
+			
+		}
+		return user;
+	}
 	
 }

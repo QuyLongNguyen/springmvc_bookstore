@@ -77,8 +77,7 @@
 					&redirect_uri=http://localhost:8080/hogwarts-bookstore/login/google
 					&response_type=code
   					&client_id=620331720388-sgff3utkvvg2hl52r8j8eultsqeff6a2.apps.googleusercontent.com
-  					">Login
-						With Google</a>
+  					">Login With Google</a>
 				</div>
 				<div class="mb-3">
 					<a href="${pageContext.request.contextPath}/">Homepage</a>

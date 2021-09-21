@@ -20,7 +20,6 @@ import com.longnguyenquy.service.CategoryService;
 import com.longnguyenquy.service.UserService;
 import com.longnguyenquy.service.CartService;
 
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 @Controller
 @RequestMapping("/cart")

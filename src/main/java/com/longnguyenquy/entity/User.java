@@ -82,7 +82,7 @@ public class User {
 	
 	public User() {};
 
-	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address,Cart cart) {
+	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
@@ -90,10 +90,10 @@ public class User {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.cart = cart;
+		
 	}
 
-	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address, Cart cart,
+	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address,
 			Collection<Role> roles) {
 		this.userName = userName;
 		this.password = password;
@@ -102,7 +102,6 @@ public class User {
 		this.email = email;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
-		this.cart = cart;
 		this.roles = roles;
 	}
 

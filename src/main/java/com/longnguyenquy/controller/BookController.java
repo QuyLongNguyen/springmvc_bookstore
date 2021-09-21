@@ -74,19 +74,23 @@ public class BookController {
 	}
 	*/
 	@GetMapping(value = {"/",""}, params = {"categoryName","page"} )
-	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName,@RequestParam(value = "page", required = false) int page, Model model) {
+	public String showBooksOfCategory(@RequestParam("categoryName") String categoryName,@RequestParam("page") int page, Model model) {
 		
 		List<Category> categories = categoryService.getCategories();
 		model.addAttribute("categories", categories);
 		
-		/*
-		List<Book> books = bookService.getBooksSegment(categoryName, page * 2, 2);
-		if(page > books.size()) {
-			return "404";
-		}
-		*/
+		
 		List<Book> books = bookService.getBooks(categoryService.getCategory(categoryName).getCategoryId());
-		model.addAttribute("books", books);
+		
+		int booksPerPage = 2;
+		int startIndex = page * booksPerPage, endIndex = startIndex + booksPerPage;
+		if(endIndex >= books.size()) {
+			endIndex = books.size();
+		}
+		
+		List<Book> subList = books.subList(startIndex, endIndex);
+		model.addAttribute("books", subList);
+		model.addAttribute("total", (books.size()+1) / booksPerPage);
 		
 		if(shoppingService.getCartItems() != null) {
 			model.addAttribute("cartCount", shoppingService.getCartItems().size());

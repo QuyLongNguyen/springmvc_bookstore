@@ -129,6 +129,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void save(User user) {
 		
+		user.setRoles(Arrays.asList(roleDao.findRoleByName("ROLE_CUSTOMER")));
 		userDao.save(user);
 	}
 	
@@ -185,7 +186,7 @@ public class UserServiceImpl implements UserService {
 				mapRolesToAuthorities(user.getRoles()));
 	}
 
-	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+	public Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 	}
 

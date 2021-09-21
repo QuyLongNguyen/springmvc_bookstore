@@ -37,7 +37,7 @@
 						<c:forEach items="${categories}" var="category">
 						
 						<a class="dropdown-item"
-							href="${pageContext.request.contextPath}/books?categoryName=${category.categoryName}">
+							href="${pageContext.request.contextPath}/books?categoryName=${category.categoryName}&page=0">
 						${category.categoryName}</a>
 						
 						</c:forEach>

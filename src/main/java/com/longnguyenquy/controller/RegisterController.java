@@ -65,7 +65,7 @@ public class RegisterController {
 		// create user account
 		userService.save(userDto);
 		
-		//create avaible cart for user
+		//create avaiable cart for user
 		shoppingService.createCart(userName);
 		
 		return "registration-confirmation";
