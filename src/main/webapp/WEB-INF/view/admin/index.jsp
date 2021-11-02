@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +26,7 @@
                  </button>
        	</div>
        	<div class="col-xl-10 text-center h3">
-        	Admin dashbroad
+        	Trang quản trị 	
          </div>
          </div>
             

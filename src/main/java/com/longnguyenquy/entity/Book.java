@@ -2,6 +2,7 @@ package com.longnguyenquy.entity;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -48,6 +49,9 @@ public class Book {
 	@JoinColumn(name = "category_id")
 	@ManyToOne(fetch = FetchType.EAGER)/*(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})*/
 	private Category category;
+	
+	@OneToMany(mappedBy = "book")
+	private List<Comment> comments;
 
 	@Transient
 	private int categoryId;
@@ -159,6 +163,14 @@ public class Book {
 
 	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 	@Override

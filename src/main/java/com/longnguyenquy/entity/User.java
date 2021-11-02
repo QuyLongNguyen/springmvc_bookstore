@@ -80,6 +80,10 @@ public class User {
 	@OneToMany(mappedBy = "user")
 	private List<Bill> bill;
 	
+	@OneToMany(mappedBy = "theUser")
+	private List<Comment> comments;
+	
+	
 	public User() {};
 
 	public User(String userName, String password, String firstName, String lastName, String email,String phoneNumber, String address) {

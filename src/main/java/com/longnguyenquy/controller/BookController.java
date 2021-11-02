@@ -1,6 +1,9 @@
 package com.longnguyenquy.controller;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.servlet.ServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,10 +18,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.longnguyenquy.entity.Book;
 import com.longnguyenquy.entity.Category;
+import com.longnguyenquy.entity.Comment;
 import com.longnguyenquy.entity.Item;
 import com.longnguyenquy.service.BookService;
 import com.longnguyenquy.service.CartService;
 import com.longnguyenquy.service.CategoryService;
+import com.longnguyenquy.service.CommentService;
+import com.longnguyenquy.service.UserService;
+
+import javassist.expr.NewArray;
 
 @Controller
 @RequestMapping("/books")
@@ -32,6 +40,12 @@ public class BookController {
 	
 	@Autowired
 	CartService shoppingService;
+	
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	CommentService commentService;
 	
 	@GetMapping(value = {"/",""}, params = {"keyword"})
 	public String showBooks(@RequestParam("keyword") String keyword ,  Model model) {
@@ -112,6 +126,9 @@ public class BookController {
 		Item item = new Item();
 		model.addAttribute("item", item);
 		
+		List<Comment> comments = commentService.getCommentsByBook(id);
+		model.addAttribute("comments", comments);
+		
 		if(shoppingService.getCartItems() != null) {
 			model.addAttribute("cartCount", shoppingService.getCartItems().size());
 		}
@@ -128,5 +145,17 @@ public class BookController {
 		return "redirect:/books/{bookId}?buy=true";
 	}
 	
+	@PostMapping("/{id}/comment")
+	public String writeComment(ServletRequest request, @PathVariable("id") int bookId ,RedirectAttributes redirectAttributes) {
+		
+		String content =  request.getParameter("content");
+
+		Comment comment = new Comment(userService.currentUser(),bookService.getBook(bookId),content,-1);
+		commentService.save(comment);
+		
+		redirectAttributes.addAttribute("bookId", bookId);
+		return "redirect:/books/{bookId}";
+	
+	}
 	
 }

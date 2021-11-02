@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 
@@ -26,33 +27,33 @@
             </div>
 
             <ul class="list-unstyled components">
-                <a href="${pageContext.request.contextPath}/admin"><p>Admin dashbroad</p></a>
+                <a href="${pageContext.request.contextPath}/admin"><p>Trang quản trị </p></a>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Products</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Quản lý sản phẩm</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a href="${pageContext.request.contextPath}/admin/categories">Categories</a>
+                            <a href="${pageContext.request.contextPath}/admin/categories">Loại sản phẩm</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/admin/books">All products</a>
+                            <a href="${pageContext.request.contextPath}/admin/books">Tất cả sản phẩm</a>
                         </li>
                        
                     </ul>
                 </li>
                  <li>
-                    <a href="${pageContext.request.contextPath}/admin/users">Users</a>
+                    <a href="${pageContext.request.contextPath}/admin/users">Quản lý tài khoản</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/admin/carts">Carts</a>
+                    <a href="${pageContext.request.contextPath}/admin/carts">Quản lý giỏ hàng</a>
                 </li>
                 <li>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Sales</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Quản lý bán hàng</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="${pageContext.request.contextPath}/admin/bills">Bills</a>
+                            <a href="${pageContext.request.contextPath}/admin/bills">Hóa đơn</a>
                         </li>
                         <li>
-                            <a href="#">Sales stats</a>
+                            <a href="#">Doanh số bán hàng</a>
                         </li>
                         
                     </ul>
@@ -64,12 +65,12 @@
             <ul class="list-unstyled CTAs">
                 <li>
                		<form id="my_form" action="${pageContext.request.contextPath}/logout" method="POST">	
-						<a class="dropdown-item download" href="javascript:{}" onclick="document.getElementById('my_form').submit(); return false;">Logout</a>
+						<a class="dropdown-item download" href="javascript:{}" onclick="document.getElementById('my_form').submit(); return false;">Đăng xuất</a>
 					</form>
                 </li>
                 <li><br></li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/home" class="article">Back to home</a>
+                    <a href="${pageContext.request.contextPath}/home" class="article">Quay về trang chủ</a>
                 </li>
             </ul>
         </nav> 
